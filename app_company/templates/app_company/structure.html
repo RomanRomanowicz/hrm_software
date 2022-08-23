@@ -1,0 +1,38 @@
+{% extends 'app_company/index.html' %}
+
+{% block title %}
+    <title>{{title}}</title>
+{% endblock %}
+
+{% block content %}
+<style>
+    section{
+    margin-left: 14%;
+    margin-right: 1%;
+    margin-top: 1%;
+    }
+  </style>
+<section>
+  <div class="container">
+      <p></p>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>dział firmy</th>
+          <th>wprowadzenie zmian</th>
+          <th>usunięcie działu firmy</th>
+        </tr>
+      </thead>
+      {% for i in structure %}
+      <tbody>
+        <tr>
+          <td>{{i.departament}}</td>
+          <td><a href="{% url 'update_structure' i.id %}">wprowadzić zmiany</a></td>
+          <td><a href="{% url 'delete_structure' i.id %}">usunąć</a></td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</section>
+{% endblock %}
