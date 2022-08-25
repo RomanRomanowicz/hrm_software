@@ -1,5 +1,4 @@
 import uuid
-
 from app_personnel.models import *
 from app_company.models import *
 from django.contrib.auth.models import User
@@ -11,27 +10,32 @@ from datetime import date
 
 class Delegation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
-    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
-    # function = models.ForeignKey(Function, on_delete=models.CASCADE)
-    delegation = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='командировочные в BYN: ')
-    # limit_journey = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Лимит аванса на поездку в BYN: ')
-    # limit_hotel = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Лимит аванса на гостинницу в BYN: ')
-    # limit_payment_on_account = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Лимит аванса на день в BYN: ')
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True) # tu zmienić nazwe
+    destination = models.TextField(verbose_name='цель командировки')
+    date_start = models.DateField(verbose_name='дата выезда')
+    date_end = models.DateField(verbose_name='дата возвращения')
+    departure_reason = models.CharField(max_length=150, verbose_name='Основание выезда')
+    scan_of_documents = models.FileField(upload_to='files/%Y/%m/%d', null=True, blank=True,
+                                         verbose_name='Приказ о направлении сотрудника в командировку')
 
-    def __str__(self):
-        return '%s (%s)' % (self.id, self.employee.last_name)
-
-    @property
-    def is_overdue(self):
-        if self.employee and date.today() > self.employee:
-            return True
-        return False
 
     class Meta:
         verbose_name = 'командировка'
         verbose_name_plural = 'командировка'
-        ordering = ['id']
+        ordering = ['date_start']
+        permissions = (("can_mark_returned", "test"),)
+
+    def __str__(self):
+        return '%s (%s)' % (self.id, self.employee)
+
+    # @property
+    # def is_overdue(self):
+    #     if self.employee and date.today() > self.employee:
+    #         return True
+    #     return False
+
+
 
 
 

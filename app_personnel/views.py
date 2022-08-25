@@ -32,6 +32,7 @@ def logout_user(request):
 
 class HomeView(LoginView):
     model = Personnel
+    paginate_by = 10
     # template_name = 'app_personnel/index.html'
     template_name = 'app_personnel/base.html'
     context_object_name = 'home'

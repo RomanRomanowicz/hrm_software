@@ -11,16 +11,16 @@ class AddOrgForm(forms.ModelForm):
 class AddFunctionForm(forms.ModelForm):
     class Meta:
         model = Function
-        fields = ['function', 'education']
+        fields = ['function', ]
 
 
-class AddQualificationsForm(forms.ModelForm):
-    class Meta:
-        model = Qualifications
-        fields = ['qualifications',]
+# class AddQualificationsForm(forms.ModelForm):
+#     class Meta:
+#         model = Qualifications
+#         fields = ['qualifications',]
 
 
-class AddVacationForm(forms.ModelForm):
-    class Meta:
-        model = Vacation
-        fields = ['function', 'vacation_limit', 'remote_work_limit']
+# class AddVacationForm(forms.ModelForm):
+#     class Meta:
+#         model = Vacation
+#         fields = ['function', 'vacation_limit', 'remote_work_limit']

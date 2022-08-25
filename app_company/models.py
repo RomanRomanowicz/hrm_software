@@ -13,32 +13,20 @@ class OrgStructure(models.Model):
         ordering = ['id']
 
 
-class Qualifications(models.Model):
-    qualifications = models.CharField(max_length=150, verbose_name='Квалификации')
-
-    def __str__(self):
-        return f"{self.qualifications}"
-
-    class Meta:
-        verbose_name = 'Квалификации'
-        verbose_name_plural = 'Квалификации'
-        ordering = ['id']
-
-
 class Function(models.Model):
-    PRIMARY_EDUCATION = 'PE'
-    SECONDARY_EDUCATION = 'SE'
-    HIGHER_EDUCATION = 'HE'
-    EDUCATION = [
-        (PRIMARY_EDUCATION, 'Начальное образование'),
-        (SECONDARY_EDUCATION, 'Среднее образование'),
-        (HIGHER_EDUCATION, 'Высшее образование')
-    ]
+    # PRIMARY_EDUCATION = 'PE'
+    # SECONDARY_EDUCATION = 'SE'
+    # HIGHER_EDUCATION = 'HE'
+    # EDUCATION = [
+    #     (PRIMARY_EDUCATION, 'Начальное образование'),
+    #     (SECONDARY_EDUCATION, 'Среднее образование'),
+    #     (HIGHER_EDUCATION, 'Высшее образование')
+    # ]
     function = models.CharField(max_length=150, verbose_name='должность')
-    education = models.CharField(max_length=2, choices=EDUCATION, verbose_name='Необходимое образование для должности')
+    # education = models.CharField(max_length=2, choices=EDUCATION, verbose_name='Необходимое образование для должности')
 
     def __str__(self):
-        return f"{self.function}, {self.function}"
+        return f"{self.function}"
 
     class Meta:
         verbose_name = 'должность'
@@ -46,20 +34,32 @@ class Function(models.Model):
         ordering = ['id']
 
 
+# class Qualifications(models.Model):
+#     qualifications = models.CharField(max_length=150, verbose_name='Квалификации')
+#
+#     def __str__(self):
+#         return f"{self.qualifications}"
+#
+#     class Meta:
+#         verbose_name = 'Квалификации'
+#         verbose_name_plural = 'Квалификации'
+#         ordering = ['id']
 
-class Vacation(models.Model):
-    function = models.ForeignKey(Function, on_delete=models.CASCADE, verbose_name='Должность')
-    vacation_limit = models.IntegerField(default='20', verbose_name='отпуск')
-    remote_work_limit = models.IntegerField(default='0',verbose_name='удаленная работа')
 
-    def __str__(self):
-        return f"{self.function}, {self.vacation_limit}, {self.remote_work_limit}"
 
-    class Meta:
-        verbose_name = 'отпуск и удаленная работа'
-        verbose_name_plural = 'отпуск'
-        ordering = ['id']
-
+# class Vacation(models.Model):
+#     function = models.ForeignKey(Function, on_delete=models.CASCADE, verbose_name='Должность')
+#     vacation_limit = models.IntegerField(default='20', verbose_name='отпуск')
+#     remote_work_limit = models.IntegerField(default='0',verbose_name='удаленная работа')
+#
+#     def __str__(self):
+#         return f"{self.function}, {self.vacation_limit}, {self.remote_work_limit}"
+#
+#     class Meta:
+#         verbose_name = 'отпуск и удаленная работа'
+#         verbose_name_plural = 'отпуск'
+#         ordering = ['id']
+#
 
 # class Delegation(models.Model):
 #     function = models.ForeignKey(Function, on_delete=models.CASCADE)
