@@ -18,19 +18,17 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>stanowiska</th>
-          <th>wymaganie wykształcenie</th>
-          <th>wprowadzenie zmian</th>
-          <th>usunięcie działu firmy</th>
+          <th>должности</th>
+          <th>внести изменения</th>
+          <th>удалить</th>
         </tr>
       </thead>
       {% for i in function %}
       <tbody>
         <tr>
           <td>{{i.function}}</td>
-          <td>{{i.education}}</td>
-          <td><a href="{% url 'update_function' i.id %}">wprowadzić zmiany</a></td>
-          <td><a href="{% url 'delete_function' i.id %}">usunąć</a></td>
+          <td><a href="{% url 'update_function' i.id %}">внести изменения</a></td>
+          <td><a href="{% url 'delete_function' i.id %}">удалить</a></td>
         </tr>
       </tbody>
       {% endfor %}

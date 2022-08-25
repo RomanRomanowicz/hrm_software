@@ -18,26 +18,25 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>pracownik</th>
-          <th>cel delegacji</th>
-          <th>data wyjazdu</th>
-          <th>data powrotu</th>
-          <th>data delegacji</th>
-          <th>data delegacji</th>
-          <th>data delegacji</th>
+          <th>username</th>
+          <th>сотрудник</th>
+          <th>цель командировки</th>
+          <th>от</th>
+          <th>до</th>
+          <th>Основание выезда</th>
+          <th>внести изменения</th>
         </tr>
       </thead>
       {% for i in delegation %}
       <tbody>
         <tr>
-          <td><a href="#">{{i.borrower}}</a></td>
+          <td><a href="#">{{i.username}}</a></td>
+          <td>{{i.employee}}</td>
           <td>{{i.destination}}</td>
           <td>{{i.date_start}}</td>
           <td>{{i.date_end}}</td>
           <td>{{i.departure_reason}}</td>
-          <td>{{i.scan_of_documents}}</td>
-          <td>{{i.borrower}}</td>
-          <td><a href="{% url 'update_delegation' %}">wprowadzić zmiany</a></td>
+          <td><a href="{% url 'update_delegation' %}">внести изменения</a></td>
         </tr>
       </tbody>
       {% endfor %}

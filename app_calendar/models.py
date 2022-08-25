@@ -1,4 +1,7 @@
 import uuid
+
+from django.db.models.expressions import RawSQL
+
 from app_personnel.models import *
 from app_company.models import *
 from django.contrib.auth.models import User
@@ -6,12 +9,10 @@ from django.db import models
 from datetime import date
 
 
-
-
 class Delegation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
-    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True) # tu zmienić nazwe
+    username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     destination = models.TextField(verbose_name='цель командировки')
     date_start = models.DateField(verbose_name='дата выезда')
     date_end = models.DateField(verbose_name='дата возвращения')
@@ -24,10 +25,33 @@ class Delegation(models.Model):
         verbose_name = 'командировка'
         verbose_name_plural = 'командировка'
         ordering = ['date_start']
-        permissions = (("can_mark_returned", "test"),)
+        permissions = [('can_deliver_pizzas', 'Can deliver pizzas')]
 
     def __str__(self):
         return '%s (%s)' % (self.id, self.employee)
+
+
+# class VisibleManager(models.Manager):
+#     def __int__(self, username, model):
+#         self.username = username
+#         self.employee = Employee.objects.get_for_model(model)
+#         self.model = model
+#         self.name = 'visible_for_{}'.format(username)
+#
+#     def get_queryset(self):
+#         return super().get_queryset().filter(id__in=self._get_visible_filter())
+#
+#     def _get_visible_filter(self):
+#         return RawSQL("select object_id from aclapp_acl where username = %s and model_conent_type = %s",
+#                       (self.username, self.content_type.id,))
+#
+#
+# def accessible_objects(self, user):
+#     return VisibleManager(user.usename, Delegation)
+
+
+
+
 
     # @property
     # def is_overdue(self):

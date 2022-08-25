@@ -9,15 +9,18 @@ from app_calendar.models import Delegation
 from django.contrib.auth.models import User
 
 
+def your_delegation(request):
+    context = Delegation.objects.filter(username=request.user)
+    return render(request, 'app_calendar/delegation.html', {'delegation': context})
+
+
 # class ListDelegationView(ListView):
 #     model = Delegation
 #     fields = ['employee', 'delegation', 'destination', 'date_start', 'date_end']
 #     template_name = 'app_calendar/delegation.html'
 #     context_object_name = 'delegation'
 
-def your_delegation(request):
-    context = Delegation.objects.filter(borrower=request.user)
-    return render(request, 'app_calendar/delegation.html', {'delegation': context})
+
 
 
 class CreateDelegationView(CreateView):
