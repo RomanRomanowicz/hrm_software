@@ -1,5 +1,5 @@
 from django.contrib.auth import logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
@@ -28,6 +28,12 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'app_personnel/register.html'
+    success_url = reverse_lazy('create_employee')
 
 
 class HomeView(LoginView):

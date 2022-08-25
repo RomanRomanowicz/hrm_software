@@ -7,7 +7,7 @@ from app_personnel.views import *
 urlpatterns = [
     path('', LoginUser.as_view(), name='login'),
     path('', logout_user, name='logout'),
-
+    path('register/', RegisterUser.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('home/', HomeView.as_view(), name='home'),
     path('personnel/', ListObjectView.as_view(), name='personnel'),
