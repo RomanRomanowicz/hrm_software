@@ -6,20 +6,22 @@ from app_personnel.models import *
 # @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'fathers_name')
+    search_fields = ['last_name',]
 
 
 admin.site.register(Personnel, PersonnelAdmin)
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display =['number_file', 'employee', 'function', 'departament']
+    list_display =['employee', 'function', 'departament']
 
 
-# @admin.register(Employment)
-# class EmploymentAdmin(admin.ModelAdmin):
-#     list_display = ['employee', 'employment_date_beginning', 'employment_date_ending']
-#
-#
+@admin.register(Employment)
+class EmploymentAdmin(admin.ModelAdmin):
+    list_display = ['employee', 'employment_date_beginning', 'employment_date_ending']
+
+
+
 # @admin.register(Education)
 # class EducationAdmin(admin.ModelAdmin):
 #     list_display = ['employee', 'education']

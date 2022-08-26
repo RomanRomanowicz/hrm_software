@@ -40,7 +40,7 @@ class HomeView(LoginView):
     model = Personnel
     paginate_by = 10
     # template_name = 'app_personnel/index.html'
-    template_name = 'app_personnel/base.html'
+    template_name = 'app_personnel/order_statistics.html'
     context_object_name = 'home'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -69,9 +69,22 @@ class ListObjectView(ListView):
         return Personnel.objects.filter(is_acceptance=True)
 
 
+class CreatePersonnelView(CreateView):
+    form_class = AddPersonnelForm
+    template_name = 'app_personnel/create.html'
+    context_object_name = 'create_personnel'
+    success_url = reverse_lazy('')
+
+
 class CreateEmployeeView(CreateView):
     form_class = AddEmployeeForm
-    template_name = 'app_personnel/create_employee.html'
+    template_name = 'app_personnel/create.html'
     context_object_name = 'create_employee'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('')
 
+
+class CreateEmploymentView(CreateView):
+    form_class = AddEmploymentForm
+    template_name = 'app_personnel/create.html'
+    context_object_name = 'create_employment'
+    success_url = reverse_lazy('')

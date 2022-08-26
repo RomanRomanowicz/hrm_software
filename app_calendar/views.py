@@ -10,8 +10,22 @@ from django.contrib.auth.models import User
 
 
 def your_delegation(request):
-    context = Delegation.objects.filter(username=request.user)
-    return render(request, 'app_calendar/delegation.html', {'delegation': context})
+    if request.user.groups.filter(name='Kierownictwo').exists():
+        context = Delegation.objects.filter(username=request.user)
+        return render(request, 'app_calendar/delegation.html', {'delegation': context})
+    else:
+        context = Delegation.objects.all()
+        return render(request, 'app_calendar/delegation.html', {'delegation': context})
+
+'''to dla grupy'''
+# def your_delegation(request):
+#     if request.user.groups.filter(name=request.user.groups).exists():
+#         context = Delegation.objects.filter(username=request.user)
+#         return render(request, 'app_calendar/delegation.html', {'delegation': context})
+#     else:
+#         context = Delegation.objects.all()
+#         return render(request, 'app_calendar/delegation.html', {'delegation': context})
+
 
 
 # class ListDelegationView(ListView):

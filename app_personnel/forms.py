@@ -5,16 +5,34 @@ from django.contrib.auth.models import User
 from .models import *
 
 
+class AddPersonnelForm(forms.Form, forms.ModelForm, forms.DateInput):
+    class Meta:
+        model = Personnel
+        fields = ['last_name', 'first_name', 'fathers_name', 'image', 'gender', 'email', 'phone', 'is_acceptance']
+
+
+class AddEmployeeForm(forms.Form, forms.ModelForm, forms.DateInput):
+    class Meta:
+        model = Employee
+        fields = ['username', 'employee', 'function', 'departament']
+
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class AddEmployeeForm(forms.Form, forms.ModelForm, forms.DateInput):
-    employment_date = forms.DateField(widget=DateInput)
+class AddEmploymentForm(forms.Form, forms.ModelForm, forms.DateInput):
+    employment_date_beginning = forms.DateField(widget=DateInput)
+    employment_date_ending = forms.DateField(widget=DateInput)
+    deadline = forms.DateField(widget=DateInput)
     class Meta:
-        model = Personnel
-        fields = ['last_name', 'first_name']
-        widget = {'employment_date': DateInput()}
+        model = Employment
+        fields = ['employee', 'function', 'departament',
+                  'contract', 'employment_date_beginning', 'employment_date_ending',
+                  'salary', 'uploadedFile', 'uploadedFile_date', 'education_remarks', 'deadline']
+        widget = ({'employment_date_beginning': DateInput()},
+                  {'employment_date_ending': DateInput()},
+                  {'deadline': DateInput()})
 
 
 class RegisterUserForm(UserCreationForm):
@@ -27,6 +45,8 @@ class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+
 
 
 # class LoginUserForm(AuthenticationForm):
