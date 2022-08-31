@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 from .models import *
 
 
-class AddPersonnelForm(forms.Form, forms.ModelForm, forms.DateInput):
+class AddPersonnelForm(forms.Form, forms.ModelForm):
     class Meta:
         model = Personnel
         fields = ['last_name', 'first_name', 'fathers_name', 'image', 'gender', 'email', 'phone', 'is_acceptance']
 
 
-class AddEmployeeForm(forms.Form, forms.ModelForm, forms.DateInput):
+class AddEmployeeForm(forms.Form, forms.ModelForm):
     class Meta:
         model = Employee
         fields = ['username', 'employee', 'function', 'departament']

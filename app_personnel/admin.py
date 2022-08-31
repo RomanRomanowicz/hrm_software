@@ -3,17 +3,26 @@ from django.contrib import admin
 from app_personnel.models import *
 
 
+
+admin.site.register(PersonalData)
+
+
 # @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'fathers_name')
-    search_fields = ['last_name',]
+    list_display = ('id', 'last_name', 'first_name', 'fathers_name')
+    list_display_links = ('id', 'last_name', 'first_name', 'fathers_name')
+    search_fields = ('last_name',)
+    prepopulated_fields = {"slug": ("last_name", "first_name")}
 
 
 admin.site.register(Personnel, PersonnelAdmin)
 
-@admin.register(Employee)
+# @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display =['employee', 'function', 'departament']
+    list_display =['id', 'employee', 'function', 'departament']
+    list_display_links = ('id', 'employee', 'function', 'departament')
+    search_fields = ('employee',)
+    prepopulated_fields = {"slug": ("employee",)}
 
 
 @admin.register(Employment)

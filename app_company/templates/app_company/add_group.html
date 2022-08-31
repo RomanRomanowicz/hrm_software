@@ -1,0 +1,25 @@
+{% extends 'app_company/index.html' %}
+
+{% block title %}
+    <title>{{title}}</title>
+{% endblock %}
+
+{% block content %}
+<style>
+    form {
+        margin-left: 15%;
+    }
+</style>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="col-md-6">
+            <input type="text" id="name" name="name" class="form-control" placeholder="Nazwa grup">
+        </div>
+    </div>
+
+    <input type="submit" value="Save" />
+    <script>document.write('<a href="' + document.referrer + '">Go Back</a>');</script>
+</form>
+{% endblock %}

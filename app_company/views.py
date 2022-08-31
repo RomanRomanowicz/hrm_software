@@ -1,10 +1,31 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from app_company.forms import *
 from app_company.models import *
+from django.contrib.auth.models import User, Group, Permission
+
+from app_personnel.models import *
+
+
+def employee_list(request):
+    employee = Employee.objects.all()
+    return render(request, 'app_company/employee_list.html', {'employee': employee})
+
+def function_group(request):
+    group = Group.objects.all()
+    return render(request, 'app_company/function_group.html', {'group': group})
+
+# def function_group_add(request):
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         if name != "":
+#             if len(Group.objects.filter(name=name)) == 0:
+#                 group = Group(name=name)
+#                 group.save()
+#     return redirect('function_group')
 
 
 class ListObjectView(ListView):
@@ -21,11 +42,11 @@ class ListFunctionView(ListView):
     context_object_name = 'function'
 
 
-class CreateOrgView(CreateView):
-    form_class = AddOrgForm
-    template_name = 'app_company/create.html'
-    context_object_name = 'create_structure'
-    success_url = reverse_lazy('structure')
+# class CreateOrgView(CreateView):
+#     form_class = AddOrgForm
+#     template_name = 'app_company/create.html'
+#     context_object_name = 'create_structure'
+#     success_url = reverse_lazy('structure')
 
 
 class CreateFunctionView(CreateView):
@@ -65,6 +86,12 @@ class DeleteFunctionView(DeleteView):
     template_name = 'app_company/delete.html'
     context_object_name = 'delete_function'
     success_url = reverse_lazy('function')
+
+
+
+
+
+
 
 
 

@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 
 from app_calendar.forms import AddDelegationForm
 from app_calendar.models import Delegation
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 
 def your_delegation(request):

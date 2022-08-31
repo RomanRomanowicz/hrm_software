@@ -18,18 +18,22 @@ class Personnel(models.Model):
         (FEMALE, 'Женшина')
     ]
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     fathers_name = models.CharField(max_length=30, null=True, blank=True, verbose_name='Отчество')
+    slug = models.SlugField(max_length=30, unique=True, db_index=True, verbose_name='URL')
     image = models.ImageField(upload_to='photos/%Y/%m/%d', null=True, blank=True, verbose_name='фото сотрудника')
-    gender = models.CharField(max_length=1, choices=GENDERS, verbose_name='Пол')
+    gender = models.CharField(max_length=1, choices=GENDERS, null=True, blank=True, verbose_name='Пол')
     email = models.EmailField(max_length=25, null=True, blank=True, verbose_name='e-mail')
     phone = models.IntegerField(null=True, blank=True, verbose_name='телефон')
     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
 
     def get_absolute_url(self):
-        return reverse('personnel-detail', args=[str(self.id)])
+        return reverse('personnel', kwargs={'slug': self.slug})
+
+    # def get_absolute_url(self):
+    #     return reverse('personnel-detail', args=[str(self.id)])
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"
@@ -54,6 +58,7 @@ class Employment(models.Model):
     ]
 
     employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, verbose_name='сотрудник')
+    slug = models.SlugField(max_length=30, unique=True, db_index=True, verbose_name='URL')
     function = models.ForeignKey(Function, on_delete=models.CASCADE, verbose_name='должность')
     departament = models.ForeignKey(OrgStructure, on_delete=models.CASCADE, verbose_name='подразделение фирмы')
     contract = models.CharField(max_length=2, choices=CONTRACTS, verbose_name='тип договора')
@@ -76,6 +81,42 @@ class Employment(models.Model):
         ordering = ['id']
 
 
+class PersonalData(models.Model):
+    employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, verbose_name='сотрудник')
+    born = models.DateField(verbose_name='День рождения')
+    birth_place = models.CharField(max_length=50, verbose_name='Место рождения')
+    birth_country = models.CharField(max_length=50, verbose_name='Страна рождения')
+    '''living'''
+    country = models.CharField(max_length=50, verbose_name='Страна постоянного проживания')
+    city = models.CharField(max_length=50, verbose_name='Город постоянного проживания')
+    post_code = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Почтовый индекс')
+    street = models.CharField(max_length=100, verbose_name='Улица')
+    street_number = models.CharField(max_length=10, verbose_name='Номер дома')
+    house_number = models.CharField(max_length=10, verbose_name='Номер квартиры')
+    '''education'''
+    PRIMARY_EDUCATION = 'PE'
+    SECONDARY_EDUCATION = 'SE'
+    HIGHER_EDUCATION = 'HE'
+    EDUCATION = [
+        (PRIMARY_EDUCATION, 'Начальное образование'),
+        (SECONDARY_EDUCATION, 'Среднее образование'),
+        (HIGHER_EDUCATION, 'Высшее образование')
+    ]
+    education = models.CharField(max_length=2, choices=EDUCATION, verbose_name='образование')
+    # qualifications = models.ManyToManyField(Qualifications, null=True, blank=True, verbose_name='Квалификации')
+    uploadedFile = models.FileField(upload_to='files/%Y/%m/%d', verbose_name='скану документов', null=True, blank=True)
+    uploadedFile_date = models.DateField(verbose_name='дата годности документа')
+    is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
+
+    def __str__(self):
+        return f"{self.employee}"
+
+    class Meta:
+        verbose_name = 'Личные данные'
+        verbose_name_plural = 'Личные данные'
+        ordering = ['id']
+
+
 class Employee(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -95,32 +136,10 @@ class Employee(models.Model):
         ordering = ['employee']
 
 
-# class Education(models.Model):
-#     PRIMARY_EDUCATION = 'PE'
-#     SECONDARY_EDUCATION = 'SE'
-#     HIGHER_EDUCATION = 'HE'
-#     EDUCATION = [
-#         (PRIMARY_EDUCATION, 'Начальное образование'),
-#         (SECONDARY_EDUCATION, 'Среднее образование'),
-#         (HIGHER_EDUCATION, 'Высшее образование')
-#     ]
-#     employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, verbose_name='сотрудник')
-#     education = models.CharField(max_length=2, choices=EDUCATION, verbose_name='образование')
-#     # qualifications = models.ManyToManyField(Qualifications, null=True, blank=True, verbose_name='Квалификации')
-#     uploadedFile = models.FileField(upload_to='files/%Y/%m/%d', verbose_name='скану документов', null=True, blank=True)
-#     uploadedFile_date = models.DateField(verbose_name='дата годности документа')
-#     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
-#
-#     def __str__(self):
-#         return f"{self.employee}"
-#
-#     class Meta:
-#         verbose_name = 'образование сотрудника'
-#         verbose_name_plural = 'образование сотрудники'
-#         ordering = ['id']
-#
 
-#
+
+
+
 
 # class Superiors(models.Model):
 #     departament = models.ForeignKey(OrgStructure, on_delete=models.CASCADE, verbose_name='подразделение фирмы')

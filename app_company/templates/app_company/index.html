@@ -12,10 +12,10 @@
         <a class="nav-link" href="{% url 'structure' %}">подразделение фирмы</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Квалификации</a>
+        <a class="nav-link" href="{% url 'employee_list' %}">lista pracownków</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'function' %}">Должности</a>
+        <a class="nav-link" href="{% url 'function_group' %}">Должности</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">отпуска</a>
@@ -24,7 +24,7 @@
   </nav>
   <div class="container">
     <div class="btn-group btn-group-sm">
-      <a type="button" class="btn btn-primary " href="{% url 'create_structure' %}">+ Добавить</a>
+      <a type="button" class="btn btn-primary " href="{% url 'function_group' %}">+ Добавить</a>
     </div>
   </div>
 </section>

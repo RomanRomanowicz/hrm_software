@@ -4,7 +4,10 @@ from .views import *
 urlpatterns = [
     path('', ListObjectView.as_view(), name='structure'),
     path('function/', ListFunctionView.as_view(), name='function'),
-    path('create_structure/', CreateOrgView.as_view(), name='create_structure'),
+    path('employee_list/', employee_list, name='employee_list'),
+    path('function_group/', function_group, name='function_group'),
+    # path('add_group/add/', function_group_add, name='add_group_add'),
+    # path('create_structure/', CreateOrgView.as_view(), name='create_structure'),
     path('create_function/', CreateFunctionView.as_view(), name='create_function'),
     path('update_structure/<int:pk>', UpdateOrgView.as_view(), name='update_structure'),
     path('update_function/<int:pk>', UpdateFunctionView.as_view(), name='update_function'),
