@@ -1,91 +1,94 @@
+from django.contrib.auth import logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-
 from app_company.forms import *
 from app_company.models import *
+
 from django.contrib.auth.models import User, Group, Permission
 
 from app_personnel.models import *
 
 
-def employee_list(request):
-    employee = Employee.objects.all()
-    return render(request, 'app_company/employee_list.html', {'employee': employee})
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'login.html'
+    extra_context = {'title': 'Вход в HRM Sofware'}
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'app_personnel/register.html'
+    context_object_name = 'register'
+    success_url = reverse_lazy('home')
+
+
+# def employee_list(request):
+#     employee = Employee.objects.all()
+#     return render(request, 'app_company/employee_list.html', {'employee': employee})
+
 
 def function_group(request):
     group = Group.objects.all()
     return render(request, 'app_company/function_group.html', {'group': group})
 
-# def function_group_add(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         if name != "":
-#             if len(Group.objects.filter(name=name)) == 0:
-#                 group = Group(name=name)
-#                 group.save()
-#     return redirect('function_group')
 
-
-class ListObjectView(ListView):
-    model = OrgStructure
+class DepartamentView(ListView):
+    model = Departament
     fields = ['departament', ]
-    template_name = 'app_company/structure.html'
+    template_name = 'calendarapp/add_departament.html'
     context_object_name = 'structure'
 
 
-class ListFunctionView(ListView):
-    model = Function
-    fields = ['function', ]
-    template_name = 'app_company/function.html'
-    context_object_name = 'function'
-
-
-# class CreateOrgView(CreateView):
-#     form_class = AddOrgForm
-#     template_name = 'app_company/create.html'
-#     context_object_name = 'create_structure'
-#     success_url = reverse_lazy('structure')
-
-
-class CreateFunctionView(CreateView):
-    form_class = AddFunctionForm
-    template_name = 'app_company/create.html'
-    context_object_name = 'create_function'
-    success_url = reverse_lazy('function')
-
-
-class UpdateOrgView(UpdateView):
-    model = OrgStructure
-    fields = ['departament', ]
-    template_name = 'app_company/update.html'
-    context_object_name = 'update_structure'
+class CreateDepartament(CreateView):
+    form_class = AddDepartamentForm
+    template_name = 'calendarapp/add_departament.html'
+    context_object_name = 'create_structure'
     success_url = reverse_lazy('structure')
 
 
-class UpdateFunctionView(UpdateView):
-    model = Function
-    fields = ['function', ]
-    template_name = 'app_company/update.html'
-    context_object_name = 'update_function'
-    success_url = reverse_lazy('function')
-
-
-class DeleteOrganizationView(DeleteView):
-    model = OrgStructure
+class UpdateDepartament(UpdateView):
+    model = Departament
     fields = ['departament', ]
-    template_name = 'app_company/delete.html'
+    template_name = 'calendarapp/update_departament.html'
+    context_object_name = 'update_departament'
+    success_url = reverse_lazy('structure')
+
+
+class DeleteDepartament(DeleteView):
+    model = Departament
+    fields = ['departament', ]
+    template_name = 'calendarapp/delete_structure.html'
     context_object_name = 'delete_structure'
     success_url = reverse_lazy('structure')
 
 
-class DeleteFunctionView(DeleteView):
-    model = Function
-    fields = ['function', ]
-    template_name = 'app_company/delete.html'
-    context_object_name = 'delete_function'
-    success_url = reverse_lazy('function')
+# class UpdateFunction(UpdateView):
+#     model = Function
+#     fields = ['function', ]
+#     template_name = 'app_company/update.html'
+#     context_object_name = 'update_function'
+#     success_url = reverse_lazy('function')
+#
+#
+# class DeleteFunction(DeleteView):
+#     model = Function
+#     fields = ['function', ]
+#     template_name = 'app_company/delete.html'
+#     context_object_name = 'delete_function'
+#     success_url = reverse_lazy('function')
 
 
 

@@ -28,7 +28,7 @@
     <body class="app sidebar-mini">
         <!-- Navbar-->
         <header class="app-header">
-            <a class="app-header__logo" href="#">HRM Software</a>
+            <a class="app-header__logo" href="{% url 'home' %}">HRM Software</a>
             <!-- Sidebar toggle button-->
             <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
             <!-- Navbar Right Menu-->
@@ -146,6 +146,20 @@
                 <li>
                     <a class="app-menu__item active" href="{% url 'personnel' %}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Сотрудники</span></a>
                 </li>
+                <li class="treeview">
+                    <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Регистрация</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a class="treeview-item" href="{% url 'create_personnel' %}"><i class="icon fa fa-circle-o"></i>Новый сотруднтк</a>
+                        </li>
+                        <li>
+                            <a class="treeview-item" href="{% url 'create_personnel_data' %}"><i class="icon fa fa-circle-o"></i>Личные данные</a>
+                        </li>
+                        <li>
+                            <a class="treeview-item" href="{% url 'add_employment' %}"><i class="icon fa fa-circle-o"></i>Трудоустройство</a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a>
                 </li>
@@ -164,7 +178,21 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a>
+                    <a class="app-menu__item" href="{% url 'register' %}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Настройки</span></a>
+                </li>
+                <li class="treeview">
+                    <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Настройки</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a class="treeview-item" href="{% url 'register' %}"><i class="icon fa fa-circle-o"></i> Регистрация в HRM</a>
+                        </li>
+                        <li>
+                            <a class="treeview-item" href="{% url 'structure' %}"><i class="icon fa fa-circle-o"></i>Подразделения</a>
+                        </li>
+                        <li>
+                            <a class="treeview-item" href="{% url 'structure' %}"><i class="icon fa fa-circle-o"></i>Должности</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </aside>

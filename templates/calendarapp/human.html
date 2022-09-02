@@ -17,10 +17,18 @@
 {% block content %}
 
 {% if human.image %}
-<p><img src="img-article-left" src="{{human.image.url}}"></p>
+    <p><img class="img-article-left thumb" src="{{human.image.url}}"></p>
 {% endif %}
 
-{{human.last_name}}
+{% autoescape on %}
+<p class="app-sidebar__user-name">{{human.last_name}}{{human.first_name}}
+    {% if human.fathers_name %}
+        {{human.fathers_name}}
+    {% endif %}</p>
+{% endautoescape %}
+
+<p class="app-sidebar__user-name">{{human.email}}</p>
+<p class="app-sidebar__user-name">{{human.phone}}</p>
 
 {% endblock content %}
 

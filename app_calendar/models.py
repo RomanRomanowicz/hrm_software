@@ -12,7 +12,7 @@ from datetime import date
 class Delegation(models.Model):
     '''teraz przypisze unique id dla pracownika'''
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
-    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
+    employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
     username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     destination = models.TextField(verbose_name='цель командировки')
     date_start = models.DateField(verbose_name='дата выезда')

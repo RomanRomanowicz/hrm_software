@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class OrgStructure(models.Model):
+class Departament(models.Model):
     departament = models.CharField(max_length=150, verbose_name='подразделение фирмы')
 
     def __str__(self):
@@ -13,28 +13,43 @@ class OrgStructure(models.Model):
         ordering = ['id']
 
 
-class Function(models.Model):
-    # PRIMARY_EDUCATION = 'PE'
-    # SECONDARY_EDUCATION = 'SE'
-    # HIGHER_EDUCATION = 'HE'
-    # EDUCATION = [
-    #     (PRIMARY_EDUCATION, 'Начальное образование'),
-    #     (SECONDARY_EDUCATION, 'Среднее образование'),
-    #     (HIGHER_EDUCATION, 'Высшее образование')
-    # ]
-    function = models.CharField(max_length=150, verbose_name='должность')
-    # education = models.CharField(max_length=2, choices=EDUCATION, verbose_name='Необходимое образование для должности')
-
-    def __str__(self):
-        return f"{self.function}"
-
-    class Meta:
-        verbose_name = 'должность'
-        verbose_name_plural = 'должность'
-        ordering = ['id']
 
 
-# class Qualifications(models.Model):
+
+
+
+
+
+
+
+
+
+
+
+""" funkcje to są grupy """
+
+# class Function(models.Model):
+#     # PRIMARY_EDUCATION = 'PE'
+#     # SECONDARY_EDUCATION = 'SE'
+#     # HIGHER_EDUCATION = 'HE'
+#     # EDUCATION = [
+#     #     (PRIMARY_EDUCATION, 'Начальное образование'),
+#     #     (SECONDARY_EDUCATION, 'Среднее образование'),
+#     #     (HIGHER_EDUCATION, 'Высшее образование')
+#     # ]
+#     function = models.CharField(max_length=150, verbose_name='должность')
+#     # education = models.CharField(max_length=2, choices=EDUCATION, verbose_name='Необходимое образование для должности')
+#
+#     def __str__(self):
+#         return f"{self.function}"
+#
+#     class Meta:
+#         verbose_name = 'должность'
+#         verbose_name_plural = 'должность'
+#         ordering = ['id']
+#
+#
+# # class Qualifications(models.Model):
 #     qualifications = models.CharField(max_length=150, verbose_name='Квалификации')
 #
 #     def __str__(self):

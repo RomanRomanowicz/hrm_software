@@ -9,20 +9,23 @@ admin.site.register(PersonalData)
 
 # @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'last_name', 'first_name', 'fathers_name')
+    list_display = ('id', 'last_name', 'first_name', 'fathers_name', 'image', 'is_acceptance')
     list_display_links = ('id', 'last_name', 'first_name', 'fathers_name')
     search_fields = ('last_name',)
     prepopulated_fields = {"slug": ("last_name", "first_name")}
-
+    list_editable = ('is_acceptance',)
+    list_filter = ('last_name', 'is_acceptance')
 
 admin.site.register(Personnel, PersonnelAdmin)
 
 # @admin.register(Employee)
-class EmployeeAdmin(admin.ModelAdmin):
-    list_display =['id', 'employee', 'function', 'departament']
-    list_display_links = ('id', 'employee', 'function', 'departament')
-    search_fields = ('employee',)
-    prepopulated_fields = {"slug": ("employee",)}
+# class EmployeeAdmin(admin.ModelAdmin):
+#     list_display =['id', 'employee', 'function', 'departament']
+#     list_display_links = ('id', 'employee', 'function', 'departament')
+#     search_fields = ('employee',)
+#     prepopulated_fields = {"slug": ("employee",)}
+
+
 
 
 @admin.register(Employment)

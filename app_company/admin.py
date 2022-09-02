@@ -5,14 +5,14 @@ from app_company.models import *
 
 admin.site.register(Permission)
 
-@admin.register(OrgStructure)
-class OrgStructureAdmin(admin.ModelAdmin):
+@admin.register(Departament)
+class DepartamentAdmin(admin.ModelAdmin):
     list_display = ('departament', )
 
 
-@admin.register(Function)
-class FunctionAdmin(admin.ModelAdmin):
-    list_display = ('function', )
+# @admin.register(Function)
+# class FunctionAdmin(admin.ModelAdmin):
+#     list_display = ('function', )
 
 
 # @admin.register(Qualifications)

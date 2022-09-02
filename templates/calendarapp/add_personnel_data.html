@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Event List{% endblock title %}
+
+{% block breadcrumb %}
+    <div>
+        <h1><i class="fa fa-dashboard"></i> Add Personnel</h1>
+        <p>Event List</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="#">Event List</a></li>
+    </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="block-title">
+                <h2><strong>Add</strong>Personnel</h2>
+            </div>
+            <div class="tile-body">
+                <div class="table-responsive">
+                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <form action="{% url 'create_personnel' %}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {% csrf_token %}
+                                                        <p><label class="form-label" for="{{ form.employee.id_for_label }}"></label>{{ form.employee }}</label></p>
+                                                        <label class="form-label" for="{{ form.born.id_for_label }}"></label>
+                                                            <p><input type="date" id="{{ form.born.id_for_label }}" name="born" class="form-control" placeholder="День рождения">
+                                                        <label class="form-label" for="{{ form.birth_place.id_for_label }}"></label>
+                                                            <input type="text" id="{{ form.birth_place.id_for_label }}" name="birth_place" class="form-control" placeholder="Место рождения">
+                                                        <label class="form-label" for="{{ form.birth_country.id_for_label }}"></label>
+                                                            <input type="text" id="{{ form.birth_country.id_for_label }}" name="birth_country" class="form-control" placeholder="Страна рождения">
+                                                            <label class="form-label" for="{{ form.country.id_for_label }}"></label>
+                                                            <input type="text" id="{{ form.country.id_for_label }}" name="country" class="form-control" placeholder="Страна постоянного проживания">
+                                                        <label class="form-label" for="{{ form.city.id_for_label }}"></label>
+                                                            <input type="text" id="{{ form.city.id_for_label }}" name="city" class="form-control" placeholder="Город постоянного проживания"></p>
+                                                        <label class="form-label" for="{{ form.post_code.id_for_label }}"></label>
+                                                            <input type="number" id="{{ form.post_code.id_for_label }}" name="post_code" class="form-control" placeholder="Почтовый индекс"></p>
+                                                        <label class="form-label" for="{{ form.street.id_for_label }}"></label>
+                                                            <input type="text" id="{{ form.street.id_for_label }}" name="street" class="form-control" placeholder="Улица"></p>
+                                                        <label class="form-label" for="{{ form.street_number.id_for_label }}"></label>
+                                                            <input type="number" id="{{ form.street_number.id_for_label }}" name="street_number" class="form-control" placeholder="Номер дома"></p>
+                                                        <label class="form-label" for="{{ form.house_number.id_for_label }}"></label>
+                                                            <input type="number" id="{{ form.house_number.id_for_label }}" name="house_number" class="form-control" placeholder="Номер квартиры"></p>
+                                                        <p><label class="form-label" for="{{ form.education.id_for_label }}"></label>{{ form.education }}</label></p>
+                                                        <label class="form-label" for="{{ form.uploadedFile.id_for_label }}"></label>
+                                                            <input type="file" id="{{ form.uploadedFile.id_for_label }}" name="uploadedFile"  placeholder="скану документов"></p>
+                                                        <label class="form-label" for="{{ form.uploadedFile_date.id_for_label }}"></label>
+                                                            <input type="date" id="{{ form.uploadedFile_date.id_for_label }}" name="uploadedFile_date" class="form-control" placeholder="дата годности документа"></p>
+                                                        <p><label class="form-label" for="{{ form.is_acceptance.id_for_label }}"></label>{{ form.is_acceptance }}</label></p>
+                                                        <div class="col-sm-12 " >
+                                                            <input type="submit" class="page-link" value="Save" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+{% endblock extrascripts %}

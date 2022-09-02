@@ -1,13 +1,8 @@
 import uuid
-
-from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
-
 from app_company.models import *
 from django.db import models
-import calendar
 
 
 class Personnel(models.Model):
@@ -28,9 +23,13 @@ class Personnel(models.Model):
     email = models.EmailField(max_length=25, null=True, blank=True, verbose_name='e-mail')
     phone = models.IntegerField(null=True, blank=True, verbose_name='телефон')
     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
+    # function = models.ForeignKey(Function, on_delete=models.SET_NULL, null=True, verbose_name='должность')
+    # departament = models.ForeignKey(D, on_delete=models.SET_NULL, null=True, verbose_name='подразделение фирмы')
 
     def get_absolute_url(self):
         return reverse('personnel', kwargs={'slug': self.slug})
+
+
 
     # def get_absolute_url(self):
     #     return reverse('personnel-detail', args=[str(self.id)])
@@ -58,9 +57,6 @@ class Employment(models.Model):
     ]
 
     employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, verbose_name='сотрудник')
-    slug = models.SlugField(max_length=30, unique=True, db_index=True, verbose_name='URL')
-    function = models.ForeignKey(Function, on_delete=models.CASCADE, verbose_name='должность')
-    departament = models.ForeignKey(OrgStructure, on_delete=models.CASCADE, verbose_name='подразделение фирмы')
     contract = models.CharField(max_length=2, choices=CONTRACTS, verbose_name='тип договора')
     employment_date_beginning = models.DateField(verbose_name='дата начала работы')
     employment_date_ending = models.DateField(verbose_name='дата окончания контракта')
@@ -117,23 +113,6 @@ class PersonalData(models.Model):
         ordering = ['id']
 
 
-class Employee(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
-    username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, null=True, verbose_name='сотрудник')
-    function = models.ForeignKey(Function, on_delete=models.SET_NULL, null=True, verbose_name='должность')
-    departament = models.ForeignKey(OrgStructure, on_delete=models.SET_NULL, null=True, verbose_name='подразделение фирмы')
-
-    def __str__(self):
-        return f"{self.employee}"
-
-    def get_absolute_url(self):
-        return reverse('employee-detail', args=[str(self.id)])
-
-    class Meta:
-        verbose_name = 'сотрудник'
-        verbose_name_plural = 'сотрудники'
-        ordering = ['employee']
 
 
 

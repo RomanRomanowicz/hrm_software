@@ -1,0 +1,103 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Event List{% endblock title %}
+
+{% block breadcrumb %}
+    <div>
+        <h1><i class="fa fa-dashboard"></i> Подразделения организации</h1>
+        <p>Event List</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="#">Event List</a></li>
+    </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="table-responsive">
+                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                <h2><strong>Создать </strong>Подразделение</h2>
+                                    <tbody>
+                                        <form action="{% url 'create_structure' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <tr role="row" class="odd" >
+                                                <th><div class="col-md-12">
+                                                    <input type="text" id="departament" name="departament" class="form-control" placeholder="Добавить подразделение фирмы">
+                                                </div></th>
+                                                <th><div class="col-md-">
+                                                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Добавить</button>
+                                                </div></th>
+                                                </tr>
+                                            </div>
+                                        </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="table-responsive">
+                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    <thead>
+                                    <h2><strong>Список </strong>Подразделении</h2>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Подразделение</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in structure %}
+                                            <tr role="row" class="odd" >
+                                                <td class="sorting_1">{{ forloop.counter }}</td>
+                                                <td>{{ i.departament }}</td>
+                                                <td><a class="btn btn-sm btn-primary" href="{% url 'update_departament' i.id %}" role="button"><i class="fa fa-angle-right"></i>Nзменить</a>
+                                                    <a class="btn btn-sm btn-danger" href="{% url 'delete_structure' i.id %}" role="button"><i class="fa fa-angle-right"></i>Удалить</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+{% endblock extrascripts %}
