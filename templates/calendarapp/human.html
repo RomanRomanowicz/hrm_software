@@ -16,19 +16,52 @@
 
 {% block content %}
 
-{% if human.image %}
-    <p><img class="img-article-left thumb" src="{{human.image.url}}"></p>
-{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-bordered dataTable no-footer"  role="grid" aria-describedby="sampleTable_info">
+                                <thead>
+                                <h2><strong>{{human.last_name}} </strong>
+                                    {{human.first_name}}
+                                    {% if human.fathers_name %}
+                                        {{human.fathers_name}}
+                                    {% endif %}</p>
+                                </h2>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">
+                                            {% if human.image %}
+                                                <p><img class="img-article-left thumb" height="100px" width="150px" src="{{human.image.url}}"></p>
+                                            {% endif %}
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">
+                                            {% autoescape on %}
+                                            <p class="app-sidebar__user-name">ФИО: {{human.last_name}}{{human.first_name}}
+                                                {% if human.fathers_name %}
+                                                    {{human.fathers_name}}
+                                                {% endif %}</p><p></p>
+                                            {% endautoescape %}
+                                            <p class="app-sidebar__user-name">e-mail: {{human.email}}</p>
+                                            <p class="app-sidebar__user-name">№ тел: {{human.phone}}</p>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-{% autoescape on %}
-<p class="app-sidebar__user-name">{{human.last_name}}{{human.first_name}}
-    {% if human.fathers_name %}
-        {{human.fathers_name}}
-    {% endif %}</p>
-{% endautoescape %}
+</div>
 
-<p class="app-sidebar__user-name">{{human.email}}</p>
-<p class="app-sidebar__user-name">{{human.phone}}</p>
+
+
+
 
 {% endblock content %}
 

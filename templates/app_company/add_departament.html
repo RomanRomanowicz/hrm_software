@@ -5,7 +5,7 @@
 
 {% block breadcrumb %}
     <div>
-        <h1><i class="fa fa-dashboard"></i> Должности организации</h1>
+        <h1><i class="fa fa-dashboard"></i> Подразделения организации</h1>
         <p>Event List</p>
     </div>
     <ul class="app-breadcrumb breadcrumb">
@@ -22,18 +22,18 @@
         <div class="tile">
             <div class="tile-body">
                 <div class="table-responsive">
-                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div  class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                <h2><strong>Создать </strong>Должность</h2>
+                                <table class="table table-hover table-bordered dataTable no-footer"  role="grid" aria-describedby="sampleTable_info">
+                                <h2><strong>Создать </strong>Подразделение</h2>
                                     <tbody>
-                                        <form action="{% url 'function_group_add' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                        <form action="{% url 'create_structure' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <tr role="row" class="odd" >
                                                 <th><div class="col-md-12">
-                                                    <input type="text" id="name" name="name" class="form-control" placeholder="Создать должность" required>
+                                                    <input type="text" id="departament" name="departament" class="form-control" placeholder="Добавить подразделение фирмы" required>
                                                 </div></th>
                                                 <th><div class="col-md-">
                                                     <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Добавить</button>
@@ -67,18 +67,18 @@
                             <div class="col-sm-12">
                                 <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                     <thead>
-                                    <h2><strong>Список </strong>Должностей</h2>
+                                    <h2><strong>Список </strong>Подразделении</h2>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Должность</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Подразделение</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for i in group %}
+                                        {% for i in structure %}
                                             <tr role="row" class="odd" >
                                                 <td class="sorting_1">{{ forloop.counter }}</td>
-                                                <td>{{ i.name }}</td>
+                                                <td>{{ i.departament }}</td>
                                                 <td><a class="btn btn-sm btn-primary" href="{% url 'update_departament' i.id %}" role="button"><i class="fa fa-angle-right"></i>Nзменить</a>
                                                     <a class="btn btn-sm btn-danger" href="{% url 'delete_structure' i.id %}" role="button"><i class="fa fa-angle-right"></i>Удалить</a></td>
                                             </tr>

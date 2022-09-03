@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from app_company.models import *
 from django.db import models
+from django.contrib.auth.models import User, Group, Permission
 
 
 class Personnel(models.Model):
@@ -23,8 +24,8 @@ class Personnel(models.Model):
     email = models.EmailField(max_length=25, null=True, blank=True, verbose_name='e-mail')
     phone = models.IntegerField(null=True, blank=True, verbose_name='телефон')
     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
-    # function = models.ForeignKey(Function, on_delete=models.SET_NULL, null=True, verbose_name='должность')
-    # departament = models.ForeignKey(D, on_delete=models.SET_NULL, null=True, verbose_name='подразделение фирмы')
+    function = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='должность')
+    departament = models.ForeignKey(Departament, on_delete=models.SET_NULL, null=True, verbose_name='подразделение фирмы')
 
     def get_absolute_url(self):
         return reverse('personnel', kwargs={'slug': self.slug})

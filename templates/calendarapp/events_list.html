@@ -26,10 +26,10 @@
                                 <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Фамилия</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Имя</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Отчество</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 26.641px;">SL</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Фамилия Имя Отчество</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Должность</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Подразделение</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">e-mail</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Телефон</th>
                                         </tr>
@@ -38,11 +38,32 @@
                                         {% for i in personnel %}
                                             <tr role="row" class="odd" onclick="return location.href = '{% url 'human' i.slug %}'">
                                                 <td class="sorting_1">{{ forloop.counter }}</td>
-                                                <td>{{ i.last_name }}</td>
-                                                <td>{{ i.first_name }}</td>
-                                                <td>{{ i.fathers_name }}</td>
-                                                <td>{{ i.email }}</td>
-                                                <td>{{ i.phone }}</td>
+                                                <td>
+                                                    {{ i.last_name }} {{ i.first_name }}
+                                                    {% if i.fathers_name %}
+                                                        {{i.fathers_name}}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if i.function %}
+                                                        {{ i.function }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if i.departament %}
+                                                        {{ i.departament }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if i.email %}
+                                                        {{ i.email }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if i.phone %}
+                                                        {{ i.phone }}
+                                                    {% endif %}
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

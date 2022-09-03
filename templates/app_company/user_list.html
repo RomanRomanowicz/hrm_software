@@ -70,17 +70,21 @@
                                     <h2><strong>Список </strong>Должностей</h2>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Должность</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Actions</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя пользователя</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя Фамилия</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Адрес электронной почты</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for i in group %}
+                                        {% for i in users %}
                                             <tr role="row" class="odd" >
                                                 <td class="sorting_1">{{ forloop.counter }}</td>
-                                                <td>{{ i.name }}</td>
-                                                <td><a class="btn btn-sm btn-primary" href="{% url 'update_departament' i.id %}" role="button"><i class="fa fa-angle-right"></i>Nзменить</a>
-                                                    <a class="btn btn-sm btn-danger" href="{% url 'delete_structure' i.id %}" role="button"><i class="fa fa-angle-right"></i>Удалить</a></td>
+                                                <td>{{ i.username }}</td>
+                                                <td>{{ i.first_name }} {{ i.last_name }}</td>
+                                                <td>{{ i.email_address }}</td>
+                                                <td><a class="btn btn-xs btn-primary btn-sm" href="{% url 'function_update' i.id %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Nзменить</i></a>
+                                                    <a class="btn btn-xs btn-danger btn-sm" href="{% url 'function_del' i.id %}" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Удалить</i></a></td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

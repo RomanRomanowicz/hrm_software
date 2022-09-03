@@ -35,26 +35,66 @@ class RegisterUser(CreateView):
     success_url = reverse_lazy('home')
 
 
-# def employee_list(request):
-#     employee = Employee.objects.all()
-#     return render(request, 'app_company/employee_list.html', {'employee': employee})
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'app_company/user_list.html', {'users': users})
 
 
 def function_group(request):
-    group = Group.objects.all()
-    return render(request, 'app_company/function_group.html', {'group': group})
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == 'masteruser' : perm = 1
+
+    if perm == 0:
+        error = "Доступ запрещен"
+        return render(request, 'app_company/error', {'error': error})
+
+    group = Group.objects.all().exclude(name='masteruser')
+    return render(request, 'app_company/add_function.html', {'group': group})
+
+
+def function_group_add(request):
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == 'masteruser': perm = 1
+    if perm == 0:
+        error = "Доступ запрещен"
+        return render(request, 'app_company/error', {'error': error})
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        if name != "":
+            if len(Group.objects.filter(name=name)) == 0:
+                group = Group(name=name)
+                group.save()
+    return redirect('function_group')
+
+
+class FunctionUpdate(UpdateView):
+    model = Group
+    fields = ['name', ]
+    template_name = 'app_company/update_function.html'
+    context_object_name = 'function_update'
+    success_url = reverse_lazy('function_group')
+
+
+class FunctionDelete(DeleteView):
+    model = Group
+    fields = ['name', ]
+    template_name = 'app_company/delete_function.html'
+    context_object_name = 'function_del'
+    success_url = reverse_lazy('function_group')
 
 
 class DepartamentView(ListView):
     model = Departament
     fields = ['departament', ]
-    template_name = 'calendarapp/add_departament.html'
+    template_name = 'app_company/add_departament.html'
     context_object_name = 'structure'
 
 
 class CreateDepartament(CreateView):
     form_class = AddDepartamentForm
-    template_name = 'calendarapp/add_departament.html'
+    template_name = 'app_company/add_departament.html'
     context_object_name = 'create_structure'
     success_url = reverse_lazy('structure')
 
@@ -62,7 +102,7 @@ class CreateDepartament(CreateView):
 class UpdateDepartament(UpdateView):
     model = Departament
     fields = ['departament', ]
-    template_name = 'calendarapp/update_departament.html'
+    template_name = 'app_company/update_departament.html'
     context_object_name = 'update_departament'
     success_url = reverse_lazy('structure')
 
@@ -70,29 +110,9 @@ class UpdateDepartament(UpdateView):
 class DeleteDepartament(DeleteView):
     model = Departament
     fields = ['departament', ]
-    template_name = 'calendarapp/delete_structure.html'
+    template_name = 'app_company/delete_structure.html'
     context_object_name = 'delete_structure'
     success_url = reverse_lazy('structure')
-
-
-# class UpdateFunction(UpdateView):
-#     model = Function
-#     fields = ['function', ]
-#     template_name = 'app_company/update.html'
-#     context_object_name = 'update_function'
-#     success_url = reverse_lazy('function')
-#
-#
-# class DeleteFunction(DeleteView):
-#     model = Function
-#     fields = ['function', ]
-#     template_name = 'app_company/delete.html'
-#     context_object_name = 'delete_function'
-#     success_url = reverse_lazy('function')
-
-
-
-
 
 
 
