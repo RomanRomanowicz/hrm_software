@@ -43,7 +43,7 @@ def user_list(request):
 def function_group(request):
     perm = 0
     for i in request.user.groups.all():
-        if i.name == 'masteruser' : perm = 1
+        if i.name == 'masteruser': perm = 1
 
     if perm == 0:
         error = "Доступ запрещен"

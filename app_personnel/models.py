@@ -14,7 +14,7 @@ class Personnel(models.Model):
         (FEMALE, 'Женшина')
     ]
 
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     fathers_name = models.CharField(max_length=30, null=True, blank=True, verbose_name='Отчество')

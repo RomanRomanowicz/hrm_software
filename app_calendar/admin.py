@@ -16,3 +16,6 @@ class DelegationAdmin(admin.ModelAdmin):
 # @admin.register(DepartamentE)
 # class DepartamentEAdmin(admin.ModelAdmin):
 #     list_display = ['dep', 'superior', 'function']
+
+
+admin.site.register(Event)
