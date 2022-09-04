@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Calendar
+{% endblock %}
+
+{% block content %}
+<div class="row">
+      <div class="col-md-12">
+          <div class="tile">
+              <div class="tile-body">
+                  <div class="table-responsive">
+                      <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                      <thead>
+									  	<div class="clearfix">
+                                            <span class="left m-2" style="font-size: 20px;">{{ request.user }}</span>
+											<a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ prev_month }}"> Previous Month </a>
+											<a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ next_month }}"> Next Month </a>
+											<a class="btn btn-info left" href="{% url 'cal:event_new' %}"> New Event </a>
+										</div>
+                                        <div style="color: blueviolet;">
+                                            {{ calendar }}
+                                        </div>
+                                      </thead>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
