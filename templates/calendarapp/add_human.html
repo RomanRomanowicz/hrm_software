@@ -18,52 +18,81 @@
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
-            <div class="block-title">
-                <h2><strong>Add</strong>Personnel</h2>
-            </div>
             <div class="tile-body">
                 <div class="table-responsive">
-                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <form action="{% url 'create_personnel' %}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        {% csrf_token %}
-                                                        <div class="form-error">{{ form.non_field_errors }}</div>
-                                                        <p><label class="form-label" for="{{ form.last_name.id_for_label }}"></label>
+                                <table class="table table-hover table-bordered dataTable no-footer" role="grid" aria-describedby="sampleTable_info">
+                                <h2><strong>Регистрация: </strong>нового сотрудника</h2>
+                                    <tbody>
+                                        <form action="{% url 'create_personnel' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <tr role="row" class="odd" >
+                                                    <th><div class="col-md-12">
+                                                        <label class="form-label" for="{{ form.last_name.id_for_label }}"></label>
                                                             <input type="text" id="{{ form.last_name.id_for_label }}" name="last_name" class="form-control" placeholder="Фамилия">
-
+                                                        </div>
+                                                    </th>
+                                                    <th><div class="col-md-12">
                                                         <label class="form-label" for="{{ form.first_name.id_for_label }}"></label>
                                                             <input type="text" id="{{ form.first_name.id_for_label }}" name="first_name" class="form-control" placeholder="Имя">
-
+                                                        </div>
+                                                    </th>
+                                                    <th><div class="col-md-12">
                                                         <label class="form-label" for="{{ form.fathers_name.id_for_label }}"></label>
                                                             <input type="text" id="{{ form.fathers_name.id_for_label }}" name="fathers_name" class="form-control" placeholder="Отчество">
-
-                                                        <label class="form-label" for="{{ form.slug.id_for_label }}"></label>
+                                                        </div>
+                                                    </th>
+                                                <tr role="row" class="odd" >
+                                                    <th><div class="col-md-12">
+                                                    <label class="form-label" for="{{ form.slug.id_for_label }}"></label>
                                                             <input type="text" id="{{ form.slug.id_for_label }}" name="slug" class="form-control" placeholder="URL / slug">
+                                                        </div>
+                                                    </th>
+                                                    <th><div class="col-md-12">
                                                         <label class="form-label" for="{{ form.email.id_for_label }}"></label>
                                                             <input type="email" id="{{ form.email.id_for_label }}" name="email" class="form-control" placeholder="email">
+                                                        </div>
+                                                    </th>
+                                                    <th><div class="col-md-12">
                                                         <label class="form-label" for="{{ form.phone.id_for_label }}"></label>
                                                             <input type="number" id="{{ form.phone.id_for_label }}" name="phone" class="form-control" placeholder="телефон"></p>
-                                                        <p><label class="form-label" for="{{ form.image.id_for_label }}"></label>{{ form.image }}</label></p>
-
-                                                        <p><label class="form-label" for="{{ form.gender.id_for_label }}"></label>{{ form.gender }}</label></p>
-
-                                                        <p><label class="form-label" for="{{ form.is_acceptance.id_for_label }}"></label>{{ form.is_acceptance }}</label></p>
-                                                        <div class="col-sm-12 " >
+                                                        </div>
+                                                    </th>
+                                                <tr role="row" class="odd" >
+                                                    <th><div class="col-md-12">
+                                                            <p><label class="form-label" for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>{{ form.image.label }}</p>
+                                                        </div>
+                                                    </th>
+                                                    <th><div class="col-md-12">
+                                                        <p><label class="form-label" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>{{ form.gender.label }}</p>
+                                                        </div>
+                                                    </th>
+                                                    <th><div class="col-md-12">
+                                                        <p><label class="form-label" for="{{ form.is_acceptance.id_for_label }}">{{ form.is_acceptance.label }}</label>{{ form.is_acceptance }}</p>
+                                                        </div>
+                                                    </th>
+                                                 <tr role="row" class="odd" >
+                                                    <th>
+                                                        <div class="col-md-12">
+                                                        <p><label class="form-label" for="{{ form.function.id_for_label }}">{{ form.function.label }}</label>{{ form.function }}</p>
+                                                        </div>
+                                                    </th>
+                                                    <th>
+                                                        <div class="col-md-12">
+                                                        <p><label class="form-label" for="{{ form.departament.id_for_label }}">{{ form.departament.label }}</label>{{ form.departament }}</p>
+                                                        </div>
+                                                    </th>
+                                                    <th>
+                                                        <div class="col-sm-12 ">
                                                             <input type="submit" class="page-link" value="Save" />
                                                         </div>
-                                                    </div>
-                                                </div>
-
-                                            </form>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                                    </th>
+                                                </tr>
+                                            </div>
+                                        </form>
                                     </tbody>
                                 </table>
                             </div>
@@ -73,8 +102,10 @@
             </div>
         </div>
     </div>
-
 </div>
+
+
+
 {% endblock content %}
 
 {% block extrascripts %}

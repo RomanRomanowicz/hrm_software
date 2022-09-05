@@ -14,7 +14,7 @@ class Personnel(models.Model):
         (FEMALE, 'Женшина')
     ]
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    id_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     fathers_name = models.CharField(max_length=30, null=True, blank=True, verbose_name='Отчество')
@@ -42,7 +42,7 @@ class Personnel(models.Model):
     class Meta:
         verbose_name = 'сотрудника'
         verbose_name_plural = 'сотрудники'
-        ordering = ['id']
+        ordering = ['last_name']
 
 
 class Employment(models.Model):
@@ -78,7 +78,7 @@ class Employment(models.Model):
         ordering = ['id']
 
 
-class PersonalData(models.Model):
+class PersonnelData(models.Model):
     employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, verbose_name='сотрудник')
     born = models.DateField(verbose_name='День рождения')
     birth_place = models.CharField(max_length=50, verbose_name='Место рождения')
@@ -111,7 +111,7 @@ class PersonalData(models.Model):
     class Meta:
         verbose_name = 'Личные данные'
         verbose_name_plural = 'Личные данные'
-        ordering = ['id']
+        # ordering = ['id']
 
 
 

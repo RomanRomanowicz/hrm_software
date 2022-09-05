@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView
+
 from app_personnel.forms import *
 from app_personnel.models import *
 
@@ -34,7 +35,7 @@ class HomeView(LoginView):
 class ListObjectView(ListView):
     model = Personnel
     fields = ['__all__']
-    template_name = 'calendarapp/events_list.html'
+    template_name = 'calendarapp/personnel_list.html'
     context_object_name = 'personnel'
     extra_context = {'title': 'Главнвя страница'}
 
@@ -57,24 +58,22 @@ class PersonnelIdDetail(DetailView):
 
 class CreatePersonnel(CreateView):
     form_class = AddPersonnelForm
-    # template_name = 'app_personnel/add_personnel.html'
     template_name = 'calendarapp/add_human.html'
     context_object_name = 'create_personnel'
     slug_url_kwarg = 'slug'
     # success_url = reverse_lazy('create_employee')
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('create_data')
 
 
-
-class CreatePersonalData(CreateView):
-    form_class = AddPersonalDataForm
-    template_name = 'calendarapp/add_personnel_data.html'
-    context_object_name = 'create_personnel_data'
-    success_url = reverse_lazy('create_personnel_data')
+class CreatePersonnelData(CreateView):
+    form_class = AddPersonnelDataForm
+    template_name = 'calendarapp/test2.html'
+    context_object_name = 'create_data'
+    success_url = reverse_lazy('add_employment')
 
 
 class CreateEmployment(CreateView):
     form_class = AddEmploymentForm
     template_name = 'calendarapp/add_employment.html'
     context_object_name = 'add_employment'
-    success_url = reverse_lazy('')
+    success_url = reverse_lazy('human')

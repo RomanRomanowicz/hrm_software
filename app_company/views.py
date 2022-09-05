@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from app_company.forms import *
 from app_company.models import *
 
@@ -92,7 +93,7 @@ class DepartamentView(ListView):
     context_object_name = 'structure'
 
 
-class CreateDepartament(CreateView):
+class CreateDepartament(LoginRequiredMixin, CreateView):
     form_class = AddDepartamentForm
     template_name = 'app_company/add_departament.html'
     context_object_name = 'create_structure'

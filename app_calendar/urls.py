@@ -2,7 +2,6 @@ from django.urls import path, include
 
 from .views import *
 
-
 urlpatterns = [
     # path('delegation/', ListDelegationView.as_view(), name='delegation'),
     path('delegation/', your_delegation, name='delegation'),
@@ -10,8 +9,6 @@ urlpatterns = [
     path('update_delegation/', UpdateDelegation.as_view(), name='update_delegation'),
     # path(r'delegation/$', LoanedDelegationUserListView.as_view(), name='delegation')
 ]
-
-
 
 app_name = 'cal'
 urlpatterns += [

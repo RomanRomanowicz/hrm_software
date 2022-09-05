@@ -1,20 +1,31 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from app_personnel.models import *
 
 
+class PersonnelDataAdmin(admin.ModelAdmin):
+    list_display = ['id', 'employee', 'born', 'birth_place']
 
-admin.site.register(PersonalData)
+
+admin.site.register(PersonnelData, PersonnelDataAdmin)
+
 
 
 # @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'last_name', 'first_name', 'fathers_name', 'image', 'is_acceptance')
-    list_display_links = ('id', 'last_name', 'first_name', 'fathers_name')
+    list_display = ('last_name', 'first_name', 'fathers_name', 'get_html_image', 'is_acceptance')
+    list_display_links = ('last_name', 'first_name', 'fathers_name')
     search_fields = ('last_name',)
     prepopulated_fields = {"slug": ("last_name", "first_name")}
     list_editable = ('is_acceptance',)
     list_filter = ('last_name', 'is_acceptance')
+    readonly_fields = ('id_uuid',)
+
+    def get_html_image(self, object):
+        if object.image:
+            return mark_safe(f"<img src='{object.image.url}' width=50>")
+    get_html_image.short_description = "Миниятюра"
 
 admin.site.register(Personnel, PersonnelAdmin)
 
