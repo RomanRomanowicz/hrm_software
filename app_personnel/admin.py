@@ -5,7 +5,7 @@ from app_personnel.models import *
 
 
 class PersonnelDataAdmin(admin.ModelAdmin):
-    list_display = ['id', 'employee', 'born', 'birth_place']
+    list_display = ['employee', 'born', 'birth_place']
 
 
 admin.site.register(PersonnelData, PersonnelDataAdmin)
@@ -14,13 +14,13 @@ admin.site.register(PersonnelData, PersonnelDataAdmin)
 
 # @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'fathers_name', 'get_html_image', 'is_acceptance')
+    list_display = ('user', 'last_name', 'first_name', 'fathers_name', 'get_html_image', 'is_acceptance')
     list_display_links = ('last_name', 'first_name', 'fathers_name')
     search_fields = ('last_name',)
     prepopulated_fields = {"slug": ("last_name", "first_name")}
     list_editable = ('is_acceptance',)
     list_filter = ('last_name', 'is_acceptance')
-    readonly_fields = ('id_uuid',)
+    readonly_fields = ('user',)
 
     def get_html_image(self, object):
         if object.image:

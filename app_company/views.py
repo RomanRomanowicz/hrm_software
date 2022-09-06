@@ -33,7 +33,7 @@ class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'app_personnel/register.html'
     context_object_name = 'register'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('create_personnel')
 
 
 def user_list(request):

@@ -29,6 +29,8 @@
                                         <form action="{% url 'create_personnel' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                                             {% csrf_token %}
                                             <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <p><label class="form-label" for="{{ form.user.id_for_label }}">{{ form.user.label }}</label>{{ form.user }}</p>
                                                 <tr role="row" class="odd" >
                                                     <th><div class="col-md-12">
                                                         <label class="form-label" for="{{ form.last_name.id_for_label }}"></label>
@@ -63,11 +65,11 @@
                                                     </th>
                                                 <tr role="row" class="odd" >
                                                     <th><div class="col-md-12">
-                                                            <p><label class="form-label" for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>{{ form.image.label }}</p>
+                                                            <p><label class="form-label" for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>{{ form.image }}</p>
                                                         </div>
                                                     </th>
                                                     <th><div class="col-md-12">
-                                                        <p><label class="form-label" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>{{ form.gender.label }}</p>
+                                                        <p><label class="form-label" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>{{ form.gender }}</p>
                                                         </div>
                                                     </th>
                                                     <th><div class="col-md-12">

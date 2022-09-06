@@ -73,6 +73,9 @@
                     <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Регистрация</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
                         <li>
+                            <a class="treeview-item" href="{% url 'register' %}"><i class="icon fa fa-circle-o"></i> Регистрация в HRM</a>
+                        </li>
+                        <li>
                             <a class="treeview-item" href="{% url 'create_personnel' %}"><i class="icon fa fa-circle-o"></i>Новый сотруднтк</a>
                         </li>
                         <li>
@@ -101,14 +104,14 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="app-menu__item" href="{% url 'register' %}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Настройки</span></a>
+                    <a class="app-menu__item" href="{% url 'delegation' %}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Командировки</span></a>
+                </li>
+                <li>
+                    <a class="app-menu__item" href="{% url 'register' %}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Отпуска</span></a>
                 </li>
                 <li class="treeview">
                     <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Настройки</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
-                        <li>
-                            <a class="treeview-item" href="{% url 'register' %}"><i class="icon fa fa-circle-o"></i> Регистрация в HRM</a>
-                        </li>
                         <li>
                             <a class="treeview-item" href="{% url 'user_list' %}"><i class="icon fa fa-circle-o"></i> Ползователи</a>
                         </li>

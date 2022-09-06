@@ -14,7 +14,9 @@ class Personnel(models.Model):
         (FEMALE, 'Женшина')
     ]
 
-    id_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    """uuid nie wspólpracuje z html przy wprowadzeniu danych powinno nastąpić automatyczne pobranie danych tj. Unique ID; do sprawdzenia później"""
+    # id_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     fathers_name = models.CharField(max_length=30, null=True, blank=True, verbose_name='Отчество')
@@ -36,13 +38,13 @@ class Personnel(models.Model):
     #     return reverse('personnel-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f"{self.last_name}, {self.first_name}"
+        return f"{self.user},{self.last_name}, {self.first_name}"
 
 
     class Meta:
         verbose_name = 'сотрудника'
         verbose_name_plural = 'сотрудники'
-        ordering = ['last_name']
+        ordering = ['user']
 
 
 class Employment(models.Model):
@@ -57,7 +59,7 @@ class Employment(models.Model):
         (MANAGEMENT_CONTRACT, 'Договор на оказание услуги')
     ]
 
-    employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, verbose_name='сотрудник')
+    employee = models.OneToOneField(Personnel, on_delete=models.CASCADE, primary_key=True, verbose_name='сотрудник')
     contract = models.CharField(max_length=2, choices=CONTRACTS, verbose_name='тип договора')
     employment_date_beginning = models.DateField(verbose_name='дата начала работы')
     employment_date_ending = models.DateField(verbose_name='дата окончания контракта')
@@ -70,16 +72,16 @@ class Employment(models.Model):
 
 
     def __str__(self):
-        return f"{self.employee}, {self.contract}, {self.employment_date_beginning}"
+        return f"{self.employee}"
 
     class Meta:
         verbose_name = 'Трудоустройство'
         verbose_name_plural = 'Трудоустройство'
-        ordering = ['id']
+        ordering = ['employee']
 
 
 class PersonnelData(models.Model):
-    employee = models.ForeignKey(Personnel, on_delete=models.CASCADE, verbose_name='сотрудник')
+    employee = models.OneToOneField(Personnel, on_delete=models.CASCADE, primary_key=True, verbose_name='сотрудник')
     born = models.DateField(verbose_name='День рождения')
     birth_place = models.CharField(max_length=50, verbose_name='Место рождения')
     birth_country = models.CharField(max_length=50, verbose_name='Страна рождения')
@@ -88,8 +90,8 @@ class PersonnelData(models.Model):
     city = models.CharField(max_length=50, verbose_name='Город постоянного проживания')
     post_code = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Почтовый индекс')
     street = models.CharField(max_length=100, verbose_name='Улица')
-    street_number = models.CharField(max_length=10, verbose_name='Номер дома')
-    house_number = models.CharField(max_length=10, verbose_name='Номер квартиры')
+    street_number = models.IntegerField(verbose_name='Номер дома')
+    house_number = models.IntegerField(blank=True, null=True, verbose_name='Номер квартиры')
     '''education'''
     PRIMARY_EDUCATION = 'PE'
     SECONDARY_EDUCATION = 'SE'
@@ -102,7 +104,7 @@ class PersonnelData(models.Model):
     education = models.CharField(max_length=2, choices=EDUCATION, verbose_name='образование')
     # qualifications = models.ManyToManyField(Qualifications, null=True, blank=True, verbose_name='Квалификации')
     uploadedFile = models.FileField(upload_to='files/%Y/%m/%d', verbose_name='скану документов', null=True, blank=True)
-    uploadedFile_date = models.DateField(verbose_name='дата годности документа')
+    uploadedFile_date = models.DateField(blank=True, null=True, verbose_name='дата годности документа')
     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
 
     def __str__(self):
@@ -111,7 +113,7 @@ class PersonnelData(models.Model):
     class Meta:
         verbose_name = 'Личные данные'
         verbose_name_plural = 'Личные данные'
-        # ordering = ['id']
+        ordering = ['employee']
 
 
 

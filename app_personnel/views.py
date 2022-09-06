@@ -67,7 +67,7 @@ class CreatePersonnel(CreateView):
 
 class CreatePersonnelData(CreateView):
     form_class = AddPersonnelDataForm
-    template_name = 'calendarapp/test2.html'
+    template_name = 'calendarapp/add_personnel_data.html'
     context_object_name = 'create_data'
     success_url = reverse_lazy('add_employment')
 

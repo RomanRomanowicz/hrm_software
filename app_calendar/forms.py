@@ -10,10 +10,9 @@ class DateInput(forms.DateInput):
 class AddDelegationForm(forms.Form, forms.ModelForm, forms.DateInput):
     date_start = forms.DateField(widget=DateInput)
     date_end = forms.DateField(widget=DateInput)
-
     class Meta:
         model = Delegation
-        fields = ['employee', 'username', 'destination', 'date_start', 'date_end', 'departure_reason', 'scan_of_documents']
+        fields = ['destination', 'date_start', 'date_end', 'departure_reason', 'scan_of_documents']
         widget = {'date_start': DateInput()}, {'date_end': DateInput()}
 
 

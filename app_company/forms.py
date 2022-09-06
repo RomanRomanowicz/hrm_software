@@ -20,7 +20,10 @@ class RegisterUserForm(UserCreationForm):
     password2 = forms.CharField(label='Повтор пароля', widget=forms.TextInput(attrs={'class': 'form-input'}))
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        fields = ('last_name', 'first_name', 'username', 'email', 'password1', 'password2')
+
+    def __str__(self):
+        return f"{self.first_name}, {self.last_name}"
 
 
 

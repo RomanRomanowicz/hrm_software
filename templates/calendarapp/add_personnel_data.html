@@ -30,8 +30,10 @@
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <div class="col-md-12">
+                                                    {% if not PersonnelData.employee %}
                                                             <p><label class="form-label" for="{{ form.employee.id_for_label }}">{{ form.employee.label }}</label>{{ form.employee }}</p>
-                                                        </div>
+                                                    {% endif %}
+                                                </div>
                                                     </th>
                                                 <tr role="row" class="odd" >
                                                     <th><div class="col-md-12">

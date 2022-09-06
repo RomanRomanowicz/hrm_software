@@ -8,21 +8,25 @@ from .models import *
 class AddPersonnelForm(forms.Form, forms.ModelForm):
     class Meta:
         model = Personnel
-        fields = ['id_uuid', 'last_name', 'first_name',
+        fields = ['user', 'last_name', 'first_name',
                   'fathers_name', 'slug', 'image',
                   'gender', 'email', 'phone', 'function', 'departament', 'is_acceptance']
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class AddPersonnelDataForm(forms.Form, forms.ModelForm):
+    born = forms.DateField(widget=DateInput)
+    uploadedFile_date = forms.DateField(widget=DateInput)
     class Meta:
         model = PersonnelData
         fields = ['employee', 'born', 'birth_place', 'birth_country',
                   'country', 'city', 'post_code', 'street', 'street_number', 'house_number',
                   'education', 'uploadedFile', 'uploadedFile_date', 'is_acceptance']
-
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
+        widget = ({'born': DateInput()},
+                  {'uploadedFile_date': DateInput()})
 
 
 class AddEmploymentForm(forms.Form, forms.ModelForm, forms.DateInput):

@@ -4,14 +4,15 @@ from app_calendar.models import *
 from app_personnel.models import *
 
 
-@admin.register(Delegation)
-class DelegationAdmin(admin.ModelAdmin):
-    list_display = ('employee', 'destination', 'date_start', 'date_end', 'username')
+# @admin.register(Delegation)
+# class DelegationAdmin(admin.ModelAdmin):
+#     list_display = ('destination', 'date_start', 'date_end')
     # list_filter = ('delegation', )
     # fields = (
     #     (None, {'fields': ('employee', 'id')}),
     #     ('Availability', {'fields': ('delegation', 'username')})
     # )
+admin.site.register(Delegation)
 
 # @admin.register(DepartamentE)
 # class DepartamentEAdmin(admin.ModelAdmin):

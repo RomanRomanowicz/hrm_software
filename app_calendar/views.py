@@ -20,13 +20,13 @@ from .utils import Calendar
 
 
 
-def your_delegation(request):
-    if request.user.groups.filter(name='Kierownictwo').exists():
-        context = Delegation.objects.filter(username=request.user)
-        return render(request, 'app_calendar/delegation.html', {'delegation': context})
-    else:
-        context = Delegation.objects.all()
-        return render(request, 'app_calendar/delegation.html', {'delegation': context})
+# def your_delegation(request):
+#     if request.user.groups.filter(name='Kierownictwo').exists():
+#         context = Delegation.objects.filter(username=request.user)
+#         return render(request, 'app_calendar/delegation.html', {'delegation': context})
+#     else:
+#         context = Delegation.objects.all()
+#         return render(request, 'app_calendar/delegation.html', {'delegation': context})
 
 '''to dla grupy'''
 # def your_delegation(request):
@@ -38,29 +38,29 @@ def your_delegation(request):
 #         return render(request, 'app_calendar/delegation.html', {'delegation': context})
 
 
-
-# class ListDelegationView(ListView):
-#     model = Delegation
-#     fields = ['employee', 'delegation', 'destination', 'date_start', 'date_end']
-#     template_name = 'app_calendar/delegation.html'
-#     context_object_name = 'delegation'
-
-
-
-
-class CreateDelegationView(CreateView):
-    form_class = AddDelegationForm
-    template_name = 'app_calendar/create.html'
-    context_object_name = 'create_delegation'
-    success_url = reverse_lazy('delegation')
-
-
-class UpdateDelegation(UpdateView):
+class ListDelegationView(ListView):
     model = Delegation
     fields = ['employee', 'delegation', 'destination', 'date_start', 'date_end']
-    template_name = 'app_calendar/update.html'
-    context_object_name = 'update_delegation'
-    success_url = reverse_lazy('delegation')
+    # template_name = 'app_calendar/delegation.html'
+    template_name = 'calendarapp/test.html'
+    context_object_name = 'delegation'
+
+
+
+
+# class CreateDelegationView(CreateView):
+#     form_class = AddDelegationForm
+#     template_name = 'app_calendar/create.html'
+#     context_object_name = 'create_delegation'
+#     success_url = reverse_lazy('delegation')
+#
+#
+# class UpdateDelegation(UpdateView):
+#     model = Delegation
+#     fields = ['employee', 'delegation', 'destination', 'date_start', 'date_end']
+#     template_name = 'app_calendar/update.html'
+#     context_object_name = 'update_delegation'
+#     success_url = reverse_lazy('delegation')
 
 
 # class LoanedDelegationUserListView(LoginRequiredMixin, generic.ListView):
