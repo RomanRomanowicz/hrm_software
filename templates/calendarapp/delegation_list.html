@@ -5,7 +5,7 @@
 
 {% block breadcrumb %}
     <div>
-        <h1><i class="fa fa-dashboard"></i> Должности организации</h1>
+        <h1><i class="fa fa-dashboard"></i> Add Personnel</h1>
         <p>Event List</p>
     </div>
     <ul class="app-breadcrumb breadcrumb">
@@ -16,7 +16,6 @@
 
 {% block content %}
 
-
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
@@ -26,13 +25,19 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                <h2><strong>Создать </strong>Должность</h2>
+                                <h2><strong>Новая </strong> командировка</h2>
                                     <tbody>
-                                        <form action="{% url 'function_group_add' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                        <form action="{% url 'create_delegation' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <tr role="row" class="odd" >
                                                 <th><div class="col-md-12">
+                                                    <input type="text" id="name" name="name" class="form-control" placeholder="Создать должность" required>
+                                                </div></th>
+                                                    <th><div class="col-md-12">
+                                                    <input type="text" id="name" name="name" class="form-control" placeholder="Создать должность" required>
+                                                </div></th>
+                                                    <th><div class="col-md-12">
                                                     <input type="text" id="name" name="name" class="form-control" placeholder="Создать должность" required>
                                                 </div></th>
                                                 <th><div class="col-md-">
@@ -50,10 +55,19 @@
             </div>
         </div>
     </div>
-
 </div>
 
+<style>
+    form {
+        margin-left: 15%;
+    }
+</style>
 
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+    <script>document.write('<a href="' + document.referrer + '">Go Back</a>');</script>
+</form>
 
 
 
@@ -67,26 +81,32 @@
                             <div class="col-sm-12">
                                 <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                     <thead>
-                                    <h2><strong>Список </strong>Должностей</h2>
+                                    <h2><strong>Список </strong> командировок</h2>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя пользователя</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя Фамилия</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Адрес электронной почты</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя пользователя username</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Сотрудник</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">цель командировки</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">от</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">до</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Основание выезда</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for i in users %}
-                                            <tr role="row" class="odd" >
-                                                <td class="sorting_1">{{ forloop.counter }}</td>
-                                                <td>{{ i.username }}</td>
-                                                <td>{{ i.first_name }} {{ i.last_name }}</td>
-                                                <td>{{ i.email_address }}</td>
-                                                <td><a class="btn btn-xs btn-primary btn-sm" href="{% url 'function_update' i.id %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Nзменить</i></a>
-                                                    <a class="btn btn-xs btn-danger btn-sm" href="{% url 'function_del' i.id %}" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Удалить</i></a></td>
-                                            </tr>
-                                        {% endfor %}
+                                    {% for i in delegation %}
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">{{ forloop.counter }}</td>
+                                            <td><a href="#">{{i.username}}</a></td>
+                                            <td>{{i.employee}}</td>
+                                            <td>{{i.destination}}</td>
+                                            <td>{{i.date_start}}</td>
+                                            <td>{{i.date_end}}</td>
+                                            <td>{{i.departure_reason}}</td>
+                                            <td><a class="btn btn-xs btn-primary btn-sm" href="#" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Nзменить</i></a>
+                                                <a class="btn btn-xs btn-danger btn-sm" href="#" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Удалить</i></a></td>
+                                        </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
@@ -97,6 +117,7 @@
         </div>
     </div>
 </div>
+
 {% endblock content %}
 
 {% block extrascripts %}

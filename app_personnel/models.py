@@ -6,6 +6,17 @@ from django.db import models
 from django.contrib.auth.models import User, Group, Permission
 
 
+class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    employee = models.OneToOneField('Personnel', on_delete=models.CASCADE, null=True, verbose_name='сотрудник')
+    function = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='должность')
+    departament = models.ForeignKey(Departament, on_delete=models.SET_NULL, null=True,
+                                    verbose_name='подразделение фирмы')
+
+    def get_absolute_url(self):
+        return reverse('personnel-detail', args=[str(self.id)])
+
+
 class Personnel(models.Model):
     MALE = 'M'
     FEMALE = 'F'
@@ -14,7 +25,6 @@ class Personnel(models.Model):
         (FEMALE, 'Женшина')
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     """uuid nie wspólpracuje z html przy wprowadzeniu danych powinno nastąpić automatyczne pobranie danych tj. Unique ID; do sprawdzenia później"""
     # id_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
@@ -26,25 +36,19 @@ class Personnel(models.Model):
     email = models.EmailField(max_length=25, null=True, blank=True, verbose_name='e-mail')
     phone = models.IntegerField(null=True, blank=True, verbose_name='телефон')
     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
-    function = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='должность')
-    departament = models.ForeignKey(Departament, on_delete=models.SET_NULL, null=True, verbose_name='подразделение фирмы')
+
 
     def get_absolute_url(self):
         return reverse('personnel', kwargs={'slug': self.slug})
 
-
-
-    # def get_absolute_url(self):
-    #     return reverse('personnel-detail', args=[str(self.id)])
-
     def __str__(self):
-        return f"{self.user},{self.last_name}, {self.first_name}"
+        return f"{self.last_name}, {self.first_name}"
 
 
     class Meta:
         verbose_name = 'сотрудника'
         verbose_name_plural = 'сотрудники'
-        ordering = ['user']
+        ordering = ['last_name']
 
 
 class Employment(models.Model):
@@ -114,6 +118,27 @@ class PersonnelData(models.Model):
         verbose_name = 'Личные данные'
         verbose_name_plural = 'Личные данные'
         ordering = ['employee']
+
+
+class Delegation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
+    username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    destination = models.TextField(verbose_name='цель командировки')
+    date_start = models.DateField(verbose_name='дата выезда')
+    date_end = models.DateField(verbose_name='дата возвращения')
+    departure_reason = models.CharField(max_length=150, verbose_name='Основание выезда')
+    scan_of_documents = models.FileField(upload_to='files/%Y/%m/%d', null=True, blank=True,
+                                         verbose_name='Приказ о направлении сотрудника в командировку')
+
+    class Meta:
+        verbose_name = 'командировка'
+        verbose_name_plural = 'командировка'
+        ordering = ['date_start']
+        # permissions = [('can_deliver_pizzas', 'Can deliver pizzas')]
+
+    def __str__(self):
+        return '%s (%s)' % (self.id, self.employee)
 
 
 

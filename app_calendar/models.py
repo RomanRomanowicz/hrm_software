@@ -7,29 +7,6 @@ from django.db import models
 from datetime import date
 
 
-class Delegation(models.Model):
-    '''teraz przypisze unique id dla pracownika'''
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
-    # employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
-    # username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    destination = models.TextField(verbose_name='цель командировки')
-    date_start = models.DateField(verbose_name='дата выезда')
-    date_end = models.DateField(verbose_name='дата возвращения')
-    departure_reason = models.CharField(max_length=150, verbose_name='Основание выезда')
-    scan_of_documents = models.FileField(upload_to='files/%Y/%m/%d', null=True, blank=True,
-                                         verbose_name='Приказ о направлении сотрудника в командировку')
-
-
-    class Meta:
-        verbose_name = 'командировка'
-        verbose_name_plural = 'командировка'
-        ordering = ['date_start']
-        # permissions = [('can_deliver_pizzas', 'Can deliver pizzas')]
-
-    # def __str__(self):
-    #     return '%s (%s)' % (self.id, self.employee)
-
-
 from django.db import models
 from django.urls import reverse
 

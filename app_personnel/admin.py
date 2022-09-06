@@ -14,13 +14,13 @@ admin.site.register(PersonnelData, PersonnelDataAdmin)
 
 # @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
-    list_display = ('user', 'last_name', 'first_name', 'fathers_name', 'get_html_image', 'is_acceptance')
+    list_display = ('last_name', 'first_name', 'fathers_name', 'get_html_image', 'is_acceptance')
     list_display_links = ('last_name', 'first_name', 'fathers_name')
     search_fields = ('last_name',)
     prepopulated_fields = {"slug": ("last_name", "first_name")}
     list_editable = ('is_acceptance',)
     list_filter = ('last_name', 'is_acceptance')
-    readonly_fields = ('user',)
+    # readonly_fields = ('last_name',)
 
     def get_html_image(self, object):
         if object.image:
@@ -44,6 +44,18 @@ class EmploymentAdmin(admin.ModelAdmin):
     list_display = ['employee', 'employment_date_beginning', 'employment_date_ending']
 
 
+@admin.register(Delegation)
+class DelegationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'destination', 'date_start', 'date_end')
+    # list_filter = ('delegation', )
+    # fields = (
+    #     (None, {'fields': ('employee', 'id')}),
+    #     ('Availability', {'fields': ('delegation', 'username')})
+    # )
+
+# admin.site.register(Delegation, DelegationAdmin)
+
+admin.site.register(Employee)
 
 # @admin.register(Education)
 # class EducationAdmin(admin.ModelAdmin):

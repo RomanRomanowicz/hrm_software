@@ -5,12 +5,18 @@ from django.contrib.auth.models import User
 from .models import *
 
 
+class AddEmployeeForm(forms.Form, forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['user', 'employee', 'function', 'departament']
+
+
 class AddPersonnelForm(forms.Form, forms.ModelForm):
     class Meta:
         model = Personnel
-        fields = ['user', 'last_name', 'first_name',
+        fields = ['last_name', 'first_name',
                   'fathers_name', 'slug', 'image',
-                  'gender', 'email', 'phone', 'function', 'departament', 'is_acceptance']
+                  'gender', 'email', 'phone', 'is_acceptance']
 
 
 class DateInput(forms.DateInput):
@@ -45,6 +51,13 @@ class AddEmploymentForm(forms.Form, forms.ModelForm, forms.DateInput):
                   {'deadline': DateInput()})
 
 
+class AddDelegationForm(forms.Form, forms.ModelForm, forms.DateInput):
+    date_start = forms.DateField(widget=DateInput)
+    date_end = forms.DateField(widget=DateInput)
 
+    class Meta:
+        model = Delegation
+        fields = ['id', 'employee', 'username',  'destination', 'date_start', 'date_end', 'departure_reason', 'scan_of_documents']
+        widget = {'date_start': DateInput()}, {'date_end': DateInput()}
 
 
