@@ -1,0 +1,127 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Event List{% endblock title %}
+
+{% block breadcrumb %}
+    <div>
+        <h1><i class="fa fa-dashboard"></i> Add Personnel</h1>
+        <p>Event List</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="#">Event List</a></li>
+    </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+<body>
+    <form action="{% url 'create_delegation' %}" method="POST" >
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Save" />
+        <script>document.write('<a href="' + document.referrer + '">Go Back</a>');</script>
+    </form>
+</body>
+
+
+<!--<div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--        <div class="tile">-->
+<!--            <div class="tile-body">-->
+<!--                <div class="table-responsive">-->
+<!--                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">-->
+<!--                                <h2><strong>Новая </strong> командировка</h2>-->
+<!--                                    <tbody>-->
+<!--                                        <form action="{% url 'create_delegation' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">-->
+<!--                                            {% csrf_token %}-->
+<!--                                            <div class="form-group">-->
+<!--                                                <tr role="row" class="odd" >-->
+<!--                                                <th><div class="col-md-12">-->
+<!--                                                    <input type="text" id="name" name="name" class="form-control" placeholder="Создать должность" required>-->
+<!--                                                </div></th>-->
+<!--                                                    <th><div class="col-md-12">-->
+<!--                                                    <input type="text" id="name" name="name" class="form-control" placeholder="Создать должность" required>-->
+<!--                                                </div></th>-->
+<!--                                                    <th><div class="col-md-12">-->
+<!--                                                    <input type="text" id="name" name="name" class="form-control" placeholder="Создать должность" required>-->
+<!--                                                </div></th>-->
+<!--                                                <th><div class="col-md-">-->
+<!--                                                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Добавить</button>-->
+<!--                                                </div></th>-->
+<!--                                                </tr>-->
+<!--                                            </div>-->
+<!--                                        </form>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+
+<!--<div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--        <div class="tile">-->
+<!--            <div class="tile-body">-->
+<!--                <div class="table-responsive">-->
+<!--                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">-->
+<!--                                    <thead>-->
+<!--                                    <h2><strong>Список </strong> командировок</h2>-->
+<!--                                        <tr role="row">-->
+<!--                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>-->
+<!--                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя пользователя username</th>-->
+<!--                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Сотрудник</th>-->
+<!--                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">цель командировки</th>-->
+<!--                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">от</th>-->
+<!--                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">до</th>-->
+<!--                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Основание выезда</th>-->
+<!--                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Action</th>-->
+<!--                                        </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    {% for i in delegation %}-->
+<!--                                        <tr role="row" class="odd">-->
+<!--                                            <td class="sorting_1">{{ forloop.counter }}</td>-->
+<!--                                            <td><a href="#">{{i.username}}</a></td>-->
+<!--                                            <td>{{i.employee}}</td>-->
+<!--                                            <td>{{i.destination}}</td>-->
+<!--                                            <td>{{i.date_start}}</td>-->
+<!--                                            <td>{{i.date_end}}</td>-->
+<!--                                            <td>{{i.departure_reason}}</td>-->
+<!--                                            <td><a class="btn btn-xs btn-primary btn-sm" href="#" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Nзменить</i></a>-->
+<!--                                                <a class="btn btn-xs btn-danger btn-sm" href="#" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Удалить</i></a></td>-->
+<!--                                        </tr>-->
+<!--                                    {% endfor %}-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+{% endblock content %}
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+{% endblock extrascripts %}
