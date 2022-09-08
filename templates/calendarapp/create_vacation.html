@@ -20,19 +20,16 @@
     <div class="col-md-12">
         <div class="tile">
             <div class="block-title">
-                <h2><strong>Регистрация </strong><u>  в HRM Software</u></h2>
+                <h2><strong>Новая </strong><u>  Командировка</u></h2>
                 <p></p>
                     <head>
                         <body>
-                            <form action="" method="POST" >
+                            <form action="{% url 'create_vacation' %}" method="POST" >
                                 {% csrf_token %}
                                 <table>
-                                    {% for f in form %}
-                                    <p><label  class="form-label"  for="{{ f.id_for_label }}">{{f.label}}: </label>
-                                        <p>{{ f }}</p></p>
+                                    {{ form }}
                                     <p1></p1>
                                     <div class="form-error">{{ f.errors }}</div>
-                                    {% endfor %}
                                 </table>
                                 <input type="submit" value="Save" />
                                 <script>document.write('<a href="' + document.referrer + '">Go Back</a>');</script>
@@ -44,8 +41,7 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
+{% endblock content %}
 
 {% block extrascripts %}
     <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>

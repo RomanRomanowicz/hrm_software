@@ -46,14 +46,29 @@ class EmploymentAdmin(admin.ModelAdmin):
 
 @admin.register(Delegation)
 class DelegationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'destination', 'date_start', 'date_end')
-    # list_filter = ('delegation', )
-    # fields = (
-    #     (None, {'fields': ('employee', 'id')}),
-    #     ('Availability', {'fields': ('delegation', 'username')})
-    # )
+    list_display = ['username', 'cause', 'date_start', 'date_end']
+    list_filter = ('cause',)
+    fieldsets = (
+        (None, {'fields': ('employee', 'username', 'date_start', 'date_end', 'departure_reason', 'scan_of_documents')}),
+        ('Availability', {'fields': ('cause', )},)
+    )
 
-# admin.site.register(Delegation, DelegationAdmin)
+
+@admin.register(Vacation)
+class VacationAdmin(admin.ModelAdmin):
+    list_display = ['username', 'employee', 'date_start', 'date_end']
+    list_filter = ('date_start',)
+
+
+@admin.register(DailyReport)
+class DailyReportAdmin(admin.ModelAdmin):
+    list_display = ['username', 'employee', 'date_start', 'date_end']
+    list_filter = ('date_start',)
+    fieldsets = (
+        (None, {'fields': ('username', 'employee', 'date_start', 'date_end')}),
+        ('Ежедневный отчет', {'fields': ('report',)},)
+    )
+
 
 admin.site.register(Employee)
 

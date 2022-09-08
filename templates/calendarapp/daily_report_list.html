@@ -25,38 +25,36 @@
                             <div class="col-sm-12">
                                 <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                     <thead>
-                                    <h2><strong>Список </strong> командировок</h2>
+                                    <h2><strong>Eжедневный отчет </strong> </h2>
                                         <hr style="color: green;">
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя пользователя username</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Сотрудник</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">цель командировки</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">от</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">до</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Основание выезда</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Имя пользователя username</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Дата и время начала работы</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Дата и время окончания работы</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Отчет</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for i in delegation %}
+                                    {% for i in daily_report %}
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{ forloop.counter }}</td>
                                             <td><a href="#">{{i.username}}</a></td>
                                             <td>{{i.employee}}</td>
-                                            <td>{{i.destination}}</td>
                                             <td>{{i.date_start}}</td>
                                             <td>{{i.date_end}}</td>
-                                            <td>{{i.departure_reason}}</td>
-                                            <td><a class="btn btn-xs btn-primary btn-sm" href="{% url 'update_delegation' i.id %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Nзменить</i></a>
-                                                <a class="btn btn-xs btn-danger btn-sm" href="{% url 'delete_delegation' i.id %}" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Удалить</i></a></td>
+                                            <td><a class="btn btn-xs btn-info btn-sm" href="{% url 'detail_report' i.id %}" data-toggle="tooltip" title="detail" role="button" ><i class="fa fa-angle-right"> Отчет</i></a></td>
+                                            <td><a class="btn btn-xs btn-primary btn-sm" href="{% url 'update_daily_report' i.id %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Nзменить</i></a>
+                                                <a class="btn btn-xs btn-danger btn-sm" href="{% url 'delete_daily_report' i.id %}" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Удалить</i></a></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
                                 </table>
                                 <hr style="color: green;">
                                     <h2><strong>Новая </strong> командировка: </h2>
-                                    <a class="btn btn-xs btn-primary btn-sm" href="{% url 'create_delegation' %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Пройти</i></a>
+                                    <a class="btn btn-xs btn-primary btn-sm" href="{% url 'create_daily_report' %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Пройти</i></a>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,6 @@
 import uuid
+from datetime import datetime
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from app_company.models import *
@@ -6,15 +8,23 @@ from django.db import models
 from django.contrib.auth.models import User, Group, Permission
 
 
+
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     employee = models.OneToOneField('Personnel', on_delete=models.CASCADE, null=True, verbose_name='сотрудник')
     function = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='должность')
     departament = models.ForeignKey(Departament, on_delete=models.SET_NULL, null=True,
                                     verbose_name='подразделение фирмы')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def get_absolute_url(self):
-        return reverse('personnel-detail', args=[str(self.id)])
+        return reverse('employee-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return f"{self.employee}, {self.function}"
+
+    class Meta:
+        ordering = ['employee']
 
 
 class Personnel(models.Model):
@@ -36,7 +46,6 @@ class Personnel(models.Model):
     email = models.EmailField(max_length=25, null=True, blank=True, verbose_name='e-mail')
     phone = models.IntegerField(null=True, blank=True, verbose_name='телефон')
     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
-
 
     def get_absolute_url(self):
         return reverse('personnel', kwargs={'slug': self.slug})
@@ -121,10 +130,10 @@ class PersonnelData(models.Model):
 
 
 class Delegation(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
     username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    destination = models.TextField(verbose_name='цель командировки')
+    cause = models.TextField(verbose_name='цель командировки')
     date_start = models.DateField(verbose_name='дата выезда')
     date_end = models.DateField(verbose_name='дата возвращения')
     departure_reason = models.CharField(max_length=150, verbose_name='Основание выезда')
@@ -141,11 +150,40 @@ class Delegation(models.Model):
         return '%s (%s)' % (self.id, self.employee)
 
 
+class Vacation(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник')
+    username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date_start = models.DateField(verbose_name='Дата начала отпуска')
+    date_end = models.DateField(verbose_name='Дата окончания отпуска')
+    is_acceptance = models.BooleanField(default=True, verbose_name='Согласовано')
+
+    class Meta:
+        verbose_name = 'Отпуск'
+        verbose_name_plural = 'Отпуск'
+        ordering = ['date_start', 'is_acceptance']
+        # permissions = [('can_deliver_pizzas', 'Can deliver pizzas')]
+
+    def __str__(self):
+        return '%s (%s)' % (self.id, self.employee)
 
 
+class DailyReport(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник')
+    username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date_start = models.DateTimeField(verbose_name='Дата и время начала работы', default=datetime.now)
+    date_end = models.DateTimeField(verbose_name='Дата и время окончания работы', default=datetime.now)
+    report = models.TextField(verbose_name='Ежедневный отчет')
 
+    class Meta:
+        verbose_name = 'Ежедневный отчет'
+        verbose_name_plural = 'Ежедневный отчет'
+        ordering = ['date_start',]
+        # permissions = [('can_deliver_pizzas', 'Can deliver pizzas')]
 
-
+    def __str__(self):
+        return '%s (%s)' % (self.id, self.employee)
 
 
 # class Superiors(models.Model):

@@ -17,7 +17,9 @@ from app_personnel.models import *
 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
-    template_name = 'login.html'
+    template_name = 'accounts/test.html'
+    # template_name = 'login.html'
+    context_object_name = 'login'
     extra_context = {'title': 'Вход в HRM Sofware'}
 
     def get_success_url(self):
