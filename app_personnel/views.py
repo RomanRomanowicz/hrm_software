@@ -1,7 +1,7 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -53,7 +53,8 @@ class ListObjectView(ListView):
         return Personnel.objects.filter(is_acceptance=True)
 
 
-class PersonnelIdDetail(DetailView):
+class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'app_personnel.views'
     model = Personnel
     #fields = ['last_name', 'first_name']
     template_name = 'calendarapp/human.html'
@@ -117,26 +118,6 @@ def your_delegation(request):
 #     if request.user.groups.filter(name='masteruser').exists():
 #         context = Delegation.objects.filter(username=request.user)
 # return render(request, 'calendarapp/delegation_list.html', {'delegation': context})
-
-
-# def add_delegation(request):
-#     form = AddDelegationForm(request.POST or None)
-#     if request.method == "POST":
-#         if form.is_valid():
-#             new_delegation = form.save(commit=False)
-#             new_delegation.author = request.user
-#             new_delegation.save()
-#             return redirect('home')
-#     return render(request, 'calendarapp/delegation_list.html.html', locals())
-
-
-# class DelegationUserListView(LoginRequiredMixin, generic.ListView):
-#     model = Delegation
-#     template_name = 'calendarapp/delegation_list_user.html'
-#     paginate_by = 10
-#
-#     def get_queryset(self):
-#         return Delegation.objects.filter(username=self.request.user) #.filter(status__exact='o').order_by('date_start')
 
 
 class CreateDelegation(CreateView):

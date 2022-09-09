@@ -14,13 +14,4 @@ urlpatterns = [
     path('create_structure/', CreateDepartament.as_view(), name='create_structure'),
     path('update_departament/<int:pk>/', UpdateDepartament.as_view(), name='update_departament'),
     path('delete_structure/<int:pk>/', DeleteDepartament.as_view(), name='delete_structure'),
-
-    # path('qualifications/', ListQualificationView.as_view(), name='qualifications'),
-    # path('vacation/', ListVacationView.as_view(), name='vacation'),
-    # path('create_qualifications/', CreateQualificationsView.as_view(), name='create_qualifications'),
-    # path('create_vacation/', CreateVacationView.as_view(), name='create_vacation'),
-    # path('update_vacation/<int:pk>', UpdateVacationView.as_view(), name='update_vacation'),
-    # path('update_qualifications/<int:pk>', UpdateQualificationView.as_view(), name='update_qualifications'),
-    # path('delete_qualifications/<int:pk>', DeleteQualificationView.as_view(), name='delete_qualifications'),
-    # path('delete_vacation/<int:pk>', DeleteVacationView.as_view(), name='delete_vacation'),
 ]

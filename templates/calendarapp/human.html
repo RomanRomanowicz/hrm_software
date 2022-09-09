@@ -39,13 +39,14 @@
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">
                                             {% autoescape on %}
-                                            <p class="app-sidebar__user-name">ФИО: {{human.last_name}}{{human.first_name}}
+                                            <p class="app-sidebar__user-name">ФИО: &nbsp; {{human.last_name}} &nbsp; {{human.first_name}}
                                                 {% if human.fathers_name %}
-                                                    {{human.fathers_name}}
+                                                    &nbsp; {{human.fathers_name}}
                                                 {% endif %}</p><p></p>
                                             {% endautoescape %}
-                                            <p class="app-sidebar__user-name">e-mail: {{human.email}}</p>
-                                            <p class="app-sidebar__user-name">№ тел: {{human.phone}}</p>
+                                            <p class="app-sidebar__user-name">e-mail: &nbsp; {{human.email}}</p>
+                                            <p class="app-sidebar__user-name">№ тел: &nbsp;{{human.phone}}</p>
+                                            <p class="app-sidebar__user-name">№ тел: &nbsp;{{human.phone}}</p>
                                         </th>
                                     </tr>
                                 </thead>
