@@ -23,8 +23,8 @@ menu = [
 class HomeView(LoginView):
     model = Personnel
     paginate_by = 10
-    # template_name = 'app_personnel/index.html'
-    template_name = 'calendarapp/dashboard.html'
+    template_name = 'calendarapp/personnel_list.html'
+    # template_name = 'calendarapp/dashboard.html'
     context_object_name = 'personnel'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -37,7 +37,7 @@ class HomeView(LoginView):
         return Personnel.objects.filter(is_acceptance=True)
 
 
-class ListObjectView(ListView):
+class ListPersonnelView(ListView):
     model = Personnel
     fields = ['__all__']
     template_name = 'calendarapp/personnel_list.html'
@@ -52,7 +52,7 @@ class ListObjectView(ListView):
     def get_queryset(self):
         return Personnel.objects.filter(is_acceptance=True)
 
-
+'''-------------------tu przerabiam--------------------------'''
 class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
     permission_required = 'app_personnel.views'
     model = Personnel
@@ -60,6 +60,55 @@ class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
     template_name = 'calendarapp/human.html'
     slug_url_kwarg = 'slug'  ### tu mogę nadać swoją nazwę "slug"
     context_object_name = 'human'
+
+    def get_context_data(self, **kwargs):
+        context = super(PersonnelIdDetail, self).get_context_data(**kwargs)
+        context['employee'] = Employee.objects.filter(employee=self.get_object())
+        return context
+
+
+
+
+''' ------------------------------------koniec przerabiania---------------------------------'''
+
+'''---------------------nowa przerówka------------------------------'''
+class ListEmployeeView(ListView):
+    permission_required = 'app_personnel.views'
+    model = Employee
+    template_name = 'calendarapp/nowy_personnel_list.html'
+    context_object_name = 'employee_list'
+
+
+class EmployeeDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'app_personnel.views'
+    model = Employee
+    template_name = 'calendarapp/nowy_test.html'
+    context_object_name = 'employee_detail'
+
+
+
+
+
+
+
+
+''' ------------------------------------koniec przerabiania---------------------------------'''
+
+
+class EmploymentDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'app_personnel.views'
+    model = Employment
+    template_name = 'calendarapp/employment_detail.html'
+    context_object_name = 'employment_detail'
+
+
+class PersonnelDataDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'app_personnel.views'
+    model = PersonnelData
+    template_name = 'calendarapp/personnel_data_detail.html'
+    context_object_name = 'personnel_data_detail'
+
+
 
 
 class CreateEmployee(CreateView):
@@ -94,15 +143,23 @@ class CreateEmployment(CreateView):
 class EmployeeView(ListView):
     model = Employee
     fields = ['user', 'employee']
-    template_name = 'calendarapp/test.html'
+    template_name = 'calendarapp/login.html'
     context_object_name = 'employee'
 
 
 class EmployeeCreate(CreateView):
     form_class = AddPersonnelForm
-    template_name = 'calendarapp/test.html'
+    template_name = 'calendarapp/login.html'
     context_object_name = 'create_employee'
     success_url = reverse_lazy('employee')
+
+'''------------- zmiana stanowiska --------------------'''
+# class EmployeeUpdate(UpdateView):
+#     model = Employee
+#     fields = ['user', 'employee', 'function', 'departament']
+#     template_name = 'calendarapp/login.html'
+#     context_object_name = 'create_employee'
+#     success_url = reverse_lazy('employee')
 
 
 def your_delegation(request):
@@ -112,6 +169,7 @@ def your_delegation(request):
     else:
         context = Delegation.objects.all()
         return render(request, 'calendarapp/delegation_list.html', {'delegation': context})
+
 
 '''это если чётко прописать группу'''
 # def your_delegation(request):

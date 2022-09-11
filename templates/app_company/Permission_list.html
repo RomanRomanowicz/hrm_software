@@ -5,7 +5,7 @@
 
 {% block breadcrumb %}
     <div>
-        <h1><i class="fa fa-dashboard"></i> Должности организации</h1>
+        <h1><i class="fa fa-dashboard"></i> permissions </h1>
         <p>Event List</p>
     </div>
     <ul class="app-breadcrumb breadcrumb">
@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-hover table-bordered dataTable no-footer" role="grid" aria-describedby="sampleTable_info">
-                                <h2><strong>Создать группу: </strong>Должность</h2>
+                                <h2><strong>Создать </strong>permissions </h2>
                                     <tbody>
                                         <form action="{% url 'function_group_add' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                                             {% csrf_token %}
@@ -67,7 +67,7 @@
                             <div class="col-sm-12">
                                 <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                     <thead>
-                                    <h2><strong>Группы: </strong>Список должностей</h2>
+                                    <h2><strong>Список </strong>permissions </h2>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 61.641px;">SL</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Должность</th>
@@ -75,13 +75,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for i in group %}
+                                        {% for i in perms %}
                                             <tr role="row" class="odd" >
                                                 <td class="sorting_1">{{ forloop.counter }}</td>
                                                 <td>{{ i.name }}</td>
-                                                <td><a class="btn btn-xs btn-primary btn-sm" href="{% url 'function_update' i.id %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-pencil"> Nзменить</i></a>
-                                                    <a class="btn btn-xs btn-danger btn-sm" href="{% url 'function_del' i.id %}" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-times"> Удалить</i></a>
-                                                    <a class="btn btn-xs btn-secondary btn-sm" href="#" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Дать права </i></a>
+                                                <td><a class="btn btn-xs btn-primary btn-sm" href="{% url 'function_update' i.id %}" data-toggle="tooltip" title="edit" role="button" ><i class="fa fa-angle-right"> Nзменить</i></a>
+                                                    <a class="btn btn-xs btn-danger btn-sm" href="{% url 'function_del' i.id %}" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Удалить</i></a>
+                                                    <a class="btn btn-xs btn-secondary btn-sm" href="#" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Права</i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}

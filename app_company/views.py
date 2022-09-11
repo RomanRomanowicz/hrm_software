@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 import app_company.views
 from app_company.forms import *
@@ -20,7 +20,7 @@ from app_personnel.models import *
 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
-    template_name = 'accounts/test.html'
+    template_name = 'accounts/login.html'
     # template_name = 'login.html'
     context_object_name = 'login'
     extra_context = {'title': 'Вход в HRM Sofware'}
@@ -41,10 +41,17 @@ class RegisterUser(CreateView):
     success_url = reverse_lazy('create_personnel')
 
 
+# @login_required
+# @permission_required('app_company.user_list', raise_exception=True)
+# def user_list(request):
+#     users = User.objects.all()
+#     return render(request, 'app_company/user_list.html', {'users': users})
+
+
 @login_required
 @permission_required('app_company.user_list', raise_exception=True)
 def user_list(request):
-    users = User.objects.all()
+    users = Employee.objects.all()
     return render(request, 'app_company/user_list.html', {'users': users})
 
 
@@ -104,6 +111,7 @@ class DepartamentView(PermissionRequiredMixin, ListView):
 
 
 class CreateDepartament(PermissionRequiredMixin, CreateView):
+    permission_required = 'app_company.views'
     form_class = AddDepartamentForm
     template_name = 'app_company/add_departament.html'
     context_object_name = 'create_structure'
@@ -111,6 +119,7 @@ class CreateDepartament(PermissionRequiredMixin, CreateView):
 
 
 class UpdateDepartament(PermissionRequiredMixin, UpdateView):
+    permission_required = 'app_company.views'
     model = Departament
     fields = ['departament', ]
     template_name = 'app_company/update_departament.html'
@@ -119,6 +128,7 @@ class UpdateDepartament(PermissionRequiredMixin, UpdateView):
 
 
 class DeleteDepartament(PermissionRequiredMixin, DeleteView):
+    permission_required = 'app_company.views'
     model = Departament
     fields = ['departament', ]
     template_name = 'app_company/delete_structure.html'

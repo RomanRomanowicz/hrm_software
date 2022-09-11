@@ -8,14 +8,13 @@ from django.db import models
 from django.contrib.auth.models import User, Group, Permission
 
 
-
 class Employee(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     employee = models.OneToOneField('Personnel', on_delete=models.CASCADE, null=True, verbose_name='сотрудник')
     function = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='должность')
     departament = models.ForeignKey(Departament, on_delete=models.SET_NULL, null=True,
                                     verbose_name='подразделение фирмы')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def get_absolute_url(self):
         return reverse('employee-detail', args=[str(self.id)])
@@ -50,8 +49,11 @@ class Personnel(models.Model):
     def get_absolute_url(self):
         return reverse('personnel', kwargs={'slug': self.slug})
 
+
     def __str__(self):
-        return f"{self.last_name}, {self.first_name}"
+        if self.fathers_name is None:
+            return f"{self.last_name}, {self.first_name}"
+        return f"{self.last_name}, {self.first_name}, {self.fathers_name}"
 
 
     class Meta:
@@ -131,7 +133,7 @@ class PersonnelData(models.Model):
 
 class Delegation(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
-    employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, verbose_name='сотрудник')
+    employee = models.ForeignKey(Personnel, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='сотрудник')
     username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     cause = models.TextField(verbose_name='цель командировки')
     date_start = models.DateField(verbose_name='дата выезда')
@@ -184,53 +186,3 @@ class DailyReport(models.Model):
 
     def __str__(self):
         return '%s (%s)' % (self.id, self.employee)
-
-
-# class Superiors(models.Model):
-#     departament = models.ForeignKey(OrgStructure, on_delete=models.CASCADE, verbose_name='подразделение фирмы')
-#     superior = models.ForeignKey(Personnel, on_delete=models.CASCADE,blank=True, null=True,  verbose_name='начальник')
-#     level = models.IntegerField(validators=[MinValueValidator(0),
-#                                             MaxValueValidator(5)], verbose_name='уровень')
-#     '''tu zrobić filtr z Employment i wybrać spisek podwładnych'''
-#
-#     def __str__(self):
-#         return f"{self.departament}, {self.superior}"
-#
-#     class Meta:
-#         verbose_name = 'список началников подразделении'
-#         verbose_name_plural = 'список началников подразделении'
-#         ordering = ['id']
-#
-#
-# class Assignment(models.Model):
-#     level = models.ForeignKey(Superiors, on_delete=models.CASCADE, verbose_name='начальник')
-#     subordinate = models.ManyToManyField(Personnel, verbose_name='подчиненный')
-#
-#     def __str__(self):
-#         return f"{self.level}, {self.subordinate}"
-#
-#     class Meta:
-#         verbose_name = 'список подчиненных'
-#         verbose_name_plural = 'список подчиненных'
-#         ordering = ['id']
-
-# class DataMixin:
-#     pass
-#
-#
-# class LoginUser(DataMixin, LoginView):
-#     form_class = AuthentificationForm
-#     template_name = 'app_calendar/login.html'
-#
-
-#
-# # class EmployeeAssessment(models.Model):
-#     pass
-#
-#
-# class RecruitmentEmployees(models.Model):
-#     pass
-#
-#
-# class EmployeeOrder(models.Model):
-#     pass

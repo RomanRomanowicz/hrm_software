@@ -11,8 +11,10 @@ class PersonnelDataAdmin(admin.ModelAdmin):
 admin.site.register(PersonnelData, PersonnelDataAdmin)
 
 
+class EmployeeInline(admin.TabularInline):
+    model = Employee
 
-# @admin.register(Personnel)
+@admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'fathers_name', 'get_html_image', 'is_acceptance')
     list_display_links = ('last_name', 'first_name', 'fathers_name')
@@ -20,6 +22,7 @@ class PersonnelAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("last_name", "first_name")}
     list_editable = ('is_acceptance',)
     list_filter = ('last_name', 'is_acceptance')
+    inlines = [EmployeeInline]
     # readonly_fields = ('last_name',)
 
     def get_html_image(self, object):
@@ -27,7 +30,7 @@ class PersonnelAdmin(admin.ModelAdmin):
             return mark_safe(f"<img src='{object.image.url}' width=50>")
     get_html_image.short_description = "Миниятюра"
 
-admin.site.register(Personnel, PersonnelAdmin)
+# admin.site.register(Personnel, PersonnelAdmin)
 
 # @admin.register(Employee)
 # class EmployeeAdmin(admin.ModelAdmin):
@@ -47,6 +50,7 @@ class EmploymentAdmin(admin.ModelAdmin):
 @admin.register(Delegation)
 class DelegationAdmin(admin.ModelAdmin):
     list_display = ['username', 'cause', 'date_start', 'date_end']
+    # fields = ['username', 'cause', ('date_start', 'date_end')]
     list_filter = ('cause',)
     fieldsets = (
         (None, {'fields': ('employee', 'username', 'date_start', 'date_end', 'departure_reason', 'scan_of_documents')}),
@@ -63,6 +67,7 @@ class VacationAdmin(admin.ModelAdmin):
 @admin.register(DailyReport)
 class DailyReportAdmin(admin.ModelAdmin):
     list_display = ['username', 'employee', 'date_start', 'date_end']
+    # fields = ['username', 'employee', ('date_start', 'date_end')]
     list_filter = ('date_start',)
     fieldsets = (
         (None, {'fields': ('username', 'employee', 'date_start', 'date_end')}),

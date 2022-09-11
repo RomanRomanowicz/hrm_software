@@ -25,11 +25,8 @@
                         <div class="col-sm-12">
                             <table class="table table-hover table-bordered dataTable no-footer"  role="grid" aria-describedby="sampleTable_info">
                                 <thead>
-                                <h2><strong>{{human.last_name}} </strong>
-                                    {{human.first_name}}
-                                    {% if human.fathers_name %}
-                                        {{human.fathers_name}}
-                                    {% endif %}</p>
+                                <h2><strong>{{employee_detail.employee}} </strong>
+                                    {{human.first_name}}</p>
                                 </h2>
                                     <tr role="row">
                                         <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">
@@ -40,19 +37,19 @@
                                         <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">
                                             <div class="contest">
                                                 {% autoescape on %}
-                                                <p class="app-sidebar__user-name">ФИО: &nbsp; {{human.last_name}} &nbsp; {{human.first_name}}
+                                                <p class="app-sidebar__user-name">ФИО: &nbsp; {{employee_detail.employee}} &nbsp; {{human.first_name}}
                                                     {% if human.fathers_name %}
                                                         &nbsp; {{human.fathers_name}}
                                                     {% endif %}</p><p></p>
                                                 {% endautoescape %}
-                                                <p class="app-sidebar__user-name">e-mail: &nbsp; {{human.email}}</p>
-                                                <p class="app-sidebar__user-name">№ тел: &nbsp;{{human.phone}}</p>
+                                                <p class="app-sidebar__user-name">Должность: &nbsp; {{employee_detail.function}}</p>
+                                                <p class="app-sidebar__user-name">подразделение фирмы: &nbsp;{{employee_detail.departament}}</p>
                                                     <div class="contest_scorecard">
                                                         <h1>Scorecard</h1>
-                                                        {% for result in human.employe_rn.all %}
-                                                            <li>{{ result.function }}</li>
-                                                            <li>{{ result.departament }}</li>
-                                                            <li>{{ result.category }}</li>
+                                                        {% for i in employee.personnel_set.all %}
+                                                            <li>{{ i.email }}</li>
+                                                            <li>{{ i.departament }}</li>
+                                                            <li>{{ i.phone }}</li>
                                                         {% endfor %}
                                                     </div>
                                                 <a class="btn btn-xs btn-secondary btn-sm" href="#" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Дать права </i></a>
