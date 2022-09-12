@@ -57,7 +57,8 @@ class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
         return context
 
 
-class CreatePersonnelData(CreateView):
+class CreatePersonnelData(PermissionRequiredMixin, CreateView):
+    permission_required = 'app_personnel.views'
     form_class = AddPersonnelDataForm
     template_name = 'calendarapp/add_personnel_data.html'
     context_object_name = 'create_data'
@@ -72,7 +73,8 @@ class PersonnelDataDetail(PermissionRequiredMixin, DetailView):
     context_object_name = 'personnel_data_detail'
 
 
-class EmploymentCreate(CreateView):
+class EmploymentCreate(PermissionRequiredMixin, CreateView):
+    permission_required = 'app_personnel.views'
     form_class = AddEmploymentForm
     template_name = 'calendarapp/add_employment.html'
     context_object_name = 'add_employment'
@@ -103,7 +105,8 @@ class EmployeeDetail(PermissionRequiredMixin, DetailView):
     context_object_name = 'employee_detail'
 
 
-class CreateEmployee(CreateView):
+class CreateEmployee(PermissionRequiredMixin, CreateView):
+    permission_required = 'app_personnel.views'
     form_class = AddEmployeeForm
     template_name = 'calendarapp/create_employee.html'
     context_object_name = 'create_employee'

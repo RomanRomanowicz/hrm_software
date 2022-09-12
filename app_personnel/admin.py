@@ -69,4 +69,4 @@ class DailyReportAdmin(admin.ModelAdmin):
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['user', 'employee', 'function', 'departament']
     list_filter = ('employee', 'function', 'departament')
-    list_display_links = ('user', 'employee','function', 'departament')
+    list_display_links = ('user', 'employee', 'function', 'departament')
