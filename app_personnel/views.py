@@ -14,24 +14,12 @@ from app_personnel.models import *
 from django.contrib.auth.models import User, Group
 
 
-menu = [
-        {'title': 'вход', 'url_name': 'login'},
-        {'title': 'Список сотрудников', 'url_name': 'personnel'},
-        ]
-
-
 class HomeView(LoginView):
     model = Personnel
     paginate_by = 10
     template_name = 'calendarapp/personnel_list.html'
     # template_name = 'calendarapp/dashboard.html'
     context_object_name = 'personnel'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Главнвя страница'
-        return context
 
     def get_queryset(self):
         return Personnel.objects.filter(is_acceptance=True)
@@ -44,19 +32,21 @@ class ListPersonnelView(ListView):
     context_object_name = 'personnel'
     extra_context = {'title': 'Главнвя страница'}
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        return context
-
     def get_queryset(self):
         return Personnel.objects.filter(is_acceptance=True)
 
-'''-------------------tu przerabiam--------------------------'''
+
+class CreatePersonnel(CreateView):
+    form_class = AddPersonnelForm
+    template_name = 'calendarapp/add_human.html'
+    context_object_name = 'create_personnel'
+    slug_url_kwarg = 'slug'
+    success_url = reverse_lazy('create_data')
+
+
 class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
     permission_required = 'app_personnel.views'
     model = Personnel
-    #fields = ['last_name', 'first_name']
     template_name = 'calendarapp/human.html'
     slug_url_kwarg = 'slug'  ### tu mogę nadać swoją nazwę "slug"
     context_object_name = 'human'
@@ -67,11 +57,38 @@ class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
         return context
 
 
+class CreatePersonnelData(CreateView):
+    form_class = AddPersonnelDataForm
+    template_name = 'calendarapp/add_personnel_data.html'
+    context_object_name = 'create_data'
+    success_url = reverse_lazy('add_employment')
 
 
-''' ------------------------------------koniec przerabiania---------------------------------'''
+class PersonnelDataDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'app_personnel.views'
+    model = PersonnelData
+    template_name = 'calendarapp/personnel_data_detail.html'
+    # slug_url_kwarg = 'slug'
+    context_object_name = 'personnel_data_detail'
 
-'''---------------------nowa przerówka------------------------------'''
+
+class EmploymentCreate(CreateView):
+    form_class = AddEmploymentForm
+    template_name = 'calendarapp/add_employment.html'
+    context_object_name = 'add_employment'
+    success_url = reverse_lazy('register')
+
+
+class EmploymentDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'app_personnel.views'
+    model = Employment
+    template_name = 'calendarapp/employment_detail.html'
+    context_object_name = 'employment_detail'
+
+
+''' ------------------------- сотрудник ------------------------'''
+
+
 class ListEmployeeView(ListView):
     permission_required = 'app_personnel.views'
     model = Employee
@@ -86,72 +103,15 @@ class EmployeeDetail(PermissionRequiredMixin, DetailView):
     context_object_name = 'employee_detail'
 
 
-
-
-
-
-
-
-''' ------------------------------------koniec przerabiania---------------------------------'''
-
-
-class EmploymentDetail(PermissionRequiredMixin, DetailView):
-    permission_required = 'app_personnel.views'
-    model = Employment
-    template_name = 'calendarapp/employment_detail.html'
-    context_object_name = 'employment_detail'
-
-
-class PersonnelDataDetail(PermissionRequiredMixin, DetailView):
-    permission_required = 'app_personnel.views'
-    model = PersonnelData
-    template_name = 'calendarapp/personnel_data_detail.html'
-    context_object_name = 'personnel_data_detail'
-
-
-
-
 class CreateEmployee(CreateView):
     form_class = AddEmployeeForm
     template_name = 'calendarapp/create_employee.html'
     context_object_name = 'create_employee'
-    success_url = reverse_lazy('create_employee')
+    success_url = reverse_lazy('personnel')
 
 
-class CreatePersonnel(CreateView):
-    form_class = AddPersonnelForm
-    template_name = 'calendarapp/add_human.html'
-    context_object_name = 'create_personnel'
-    slug_url_kwarg = 'slug'
-    success_url = reverse_lazy('create_data')
+''' ------------------------------------koniec przerabiania---------------------------------'''
 
-
-class CreatePersonnelData(CreateView):
-    form_class = AddPersonnelDataForm
-    template_name = 'calendarapp/add_personnel_data.html'
-    context_object_name = 'create_data'
-    success_url = reverse_lazy('add_employment')
-
-
-class CreateEmployment(CreateView):
-    form_class = AddEmploymentForm
-    template_name = 'calendarapp/add_employment.html'
-    context_object_name = 'add_employment'
-    success_url = reverse_lazy('human')
-
-
-class EmployeeView(ListView):
-    model = Employee
-    fields = ['user', 'employee']
-    template_name = 'calendarapp/login.html'
-    context_object_name = 'employee'
-
-
-class EmployeeCreate(CreateView):
-    form_class = AddPersonnelForm
-    template_name = 'calendarapp/login.html'
-    context_object_name = 'create_employee'
-    success_url = reverse_lazy('employee')
 
 '''------------- zmiana stanowiska --------------------'''
 # class EmployeeUpdate(UpdateView):
@@ -160,6 +120,9 @@ class EmployeeCreate(CreateView):
 #     template_name = 'calendarapp/login.html'
 #     context_object_name = 'create_employee'
 #     success_url = reverse_lazy('employee')
+
+
+""" ----------------------------- командировка ------------------------------------"""
 
 
 def your_delegation(request):
@@ -201,6 +164,9 @@ class DeleteDelegation(DeleteView):
     success_url = reverse_lazy('delegation')
 
 
+""" ---------------------- Отпуск ------------------------------ """
+
+
 def your_vacation(request):
     if request.user.groups.filter().exists():
         context = Vacation.objects.filter(username=request.user)
@@ -231,6 +197,9 @@ class DeleteVacation(DeleteView):
     template_name = 'calendarapp/delete.html'
     context_object_name = 'delete_vacation'
     success_url = reverse_lazy('vacation')
+
+
+'''----------- Ежедневный отчет -----------------'''
 
 
 def your_daily_report(request):

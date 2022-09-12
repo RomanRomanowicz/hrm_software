@@ -6,23 +6,22 @@ from app_personnel.views import *
 
 urlpatterns = [
     path('home/', HomeView.as_view(), name='home'),
-    path('personnel/', ListPersonnelView.as_view(), name='personnel'), # TODO '''zrobie dodatkową listę z emploee'''
-    path('employee_list/', ListEmployeeView.as_view(), name='employee_list'),
-    path('personnel/<slug:slug>/', PersonnelIdDetail.as_view(), name='human'),
-    path('employee_detail/<int:pk>/', EmployeeDetail.as_view(), name='employee_detail'),
-    path('employee_detail/<int:pk>/', EmployeeDetail.as_view(), name='employee_detail'),
-
-
-
-# path('employee_detail/<slug:slug>/', EmployeeDetail.as_view(), name='employee_detail'),
-# path('employment_detail/<slug:slug>/', EmploymentDetail.as_view(), name='employment_detail'),
-# path('personnel_data_detail/<slug:slug>/', PersonnelDataDetail.as_view(), name='personnel_data_detail'),
-
+    path('personnel/', ListPersonnelView.as_view(), name='personnel'),
     path('create_personnel/', CreatePersonnel.as_view(), name='create_personnel'),
+    path('personnel/<slug:slug>/', PersonnelIdDetail.as_view(), name='human'),
+
     path('create_data/', CreatePersonnelData.as_view(), name='create_data'),
-    path('add_employment/', CreateEmployment.as_view(), name='add_employment'),
+    path('personnel_data_detail/<int:pk>/', PersonnelDataDetail.as_view(), name='personnel_data_detail'),
+
+
+    path('employee_list/', ListEmployeeView.as_view(), name='employee_list'),
+    path('employee_detail/<int:pk>/', EmployeeDetail.as_view(), name='employee_detail'),
+    path('create_employee/', CreateEmployee.as_view(), name='create_employee'),
+
+
+    path('add_employment/', EmploymentCreate.as_view(), name='add_employment'),
+
     path('delegation/', your_delegation, name='delegation'),
-    # path('create_delegation/', add_delegation, name='create_delegation'),
     path('create_delegation/', CreateDelegation.as_view(), name='create_delegation'),
     path('update_delegation/<int:pk>/', UpdateDelegation.as_view(), name='update_delegation'),
     path('delete_delegation/<int:pk>/', DeleteDelegation.as_view(), name='delete_delegation'),
@@ -35,7 +34,6 @@ urlpatterns = [
     path('update_daily_report/<int:pk>/', UpdateDailyReport.as_view(), name='update_daily_report'),
     path('delete_daily_report/<int:pk>/', DeleteDailyReport.as_view(), name='delete_daily_report'),
     path('detail_report/<int:pk>/', DetailDailyReport.as_view(), name='detail_report'),
-    path('create_employee/', CreateEmployee.as_view(), name='create_employee'),
 ]
 
 urlpatterns += [

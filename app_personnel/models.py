@@ -12,9 +12,9 @@ class Employee(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     employee = models.OneToOneField('Personnel', on_delete=models.CASCADE, null=True, verbose_name='сотрудник')
-    function = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='должность')
+    function = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='Должность')
     departament = models.ForeignKey(Departament, on_delete=models.SET_NULL, null=True,
-                                    verbose_name='подразделение фирмы')
+                                    verbose_name='Подразделение фирмы')
 
     def get_absolute_url(self):
         return reverse('employee-detail', args=[str(self.id)])
@@ -36,14 +36,14 @@ class Personnel(models.Model):
 
     """uuid nie wspólpracuje z html przy wprowadzeniu danych powinno nastąpić automatyczne pobranie danych tj. Unique ID; do sprawdzenia później"""
     # id_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID")
-    last_name = models.CharField(max_length=30, verbose_name='Фамилия')
-    first_name = models.CharField(max_length=30, verbose_name='Имя')
-    fathers_name = models.CharField(max_length=30, null=True, blank=True, verbose_name='Отчество')
-    slug = models.SlugField(max_length=30, unique=True, db_index=True, verbose_name='URL')
+    last_name = models.CharField(max_length=40, verbose_name='Фамилия')
+    first_name = models.CharField(max_length=40, verbose_name='Имя')
+    fathers_name = models.CharField(max_length=40, null=True, blank=True, verbose_name='Отчество')
+    slug = models.SlugField(max_length=50, unique=True, db_index=True, verbose_name='URL')
     image = models.ImageField(upload_to='photos/%Y/%m/%d', null=True, blank=True, verbose_name='фото сотрудника')
     gender = models.CharField(max_length=1, choices=GENDERS, null=True, blank=True, verbose_name='Пол')
-    email = models.EmailField(max_length=25, null=True, blank=True, verbose_name='e-mail')
-    phone = models.IntegerField(null=True, blank=True, verbose_name='телефон')
+    email = models.EmailField(max_length=40, null=True, blank=True, verbose_name='e-mail')
+    phone = models.CharField(max_length=30, null=True, blank=True, verbose_name='телефон')
     is_acceptance = models.BooleanField(default=True, verbose_name='Zatwierdzić')
 
     def get_absolute_url(self):
@@ -77,7 +77,7 @@ class Employment(models.Model):
     employee = models.OneToOneField(Personnel, on_delete=models.CASCADE, primary_key=True, verbose_name='сотрудник')
     contract = models.CharField(max_length=2, choices=CONTRACTS, verbose_name='тип договора')
     employment_date_beginning = models.DateField(verbose_name='дата начала работы')
-    employment_date_ending = models.DateField(verbose_name='дата окончания контракта')
+    employment_date_ending = models.DateField(blank=True, null=True, verbose_name='дата окончания контракта')
     # contract_for_an_indefinite_period = models.BooleanField(employment_date_ending)
     salary = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Размер зар. п.')
     uploadedFile = models.FileField(upload_to='files/%Y/%m/%d', verbose_name='скану документов', null=True, blank=True)
@@ -103,7 +103,7 @@ class PersonnelData(models.Model):
     '''living'''
     country = models.CharField(max_length=50, verbose_name='Страна постоянного проживания')
     city = models.CharField(max_length=50, verbose_name='Город постоянного проживания')
-    post_code = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Почтовый индекс')
+    post_code = models.CharField(max_length=50, verbose_name='Почтовый индекс')
     street = models.CharField(max_length=100, verbose_name='Улица')
     street_number = models.IntegerField(verbose_name='Номер дома')
     house_number = models.IntegerField(blank=True, null=True, verbose_name='Номер квартиры')

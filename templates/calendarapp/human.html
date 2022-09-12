@@ -34,28 +34,22 @@
                                     <tr role="row">
                                         <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">
                                             {% if human.image %}
-                                                <p><img class="img-article-left thumb" height="100px" width="150px" src="{{human.image.url}}"></p>
+                                                <p><img class="img-article-left thumb" height="180px" width="250px" src="{{human.image.url}}"></p>
                                             {% endif %}
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">
                                             <div class="contest">
                                                 {% autoescape on %}
-                                                <p class="app-sidebar__user-name">ФИО: &nbsp; {{human.last_name}} &nbsp; {{human.first_name}}
+                                                <p class="app-sidebar__user-name"><h3>ФИО: &nbsp; {{human.last_name}} &nbsp; {{human.first_name}}
                                                     {% if human.fathers_name %}
                                                         &nbsp; {{human.fathers_name}}
-                                                    {% endif %}</p><p></p>
+                                                {% endif %}</h3></p>
+                                                <h4>Должность: &nbsp; {{ human.employee.function }}</h4>
+                                                <h4>Подразделение фирмы: {{ human.employee.departament }}</h4>
+                                                <p></p>
                                                 {% endautoescape %}
                                                 <p class="app-sidebar__user-name">e-mail: &nbsp; {{human.email}}</p>
                                                 <p class="app-sidebar__user-name">№ тел: &nbsp;{{human.phone}}</p>
-                                                    <div class="contest_scorecard">
-                                                        <h1>Scorecard</h1>
-                                                        {% for result in human.employe_rn.all %}
-                                                            <li>{{ result.function }}</li>
-                                                            <li>{{ result.departament }}</li>
-                                                            <li>{{ result.category }}</li>
-                                                        {% endfor %}
-                                                    </div>
-                                                <a class="btn btn-xs btn-secondary btn-sm" href="#" data-toggle="tooltip" title="delete" role="button" ><i class="fa fa-angle-right"> Дать права </i></a>
                                                 <script>document.write('<a href="' + document.referrer + '">Go Back</a>');</script>
                                             </div>
                                         </th>
@@ -68,12 +62,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-
-
 
 {% endblock content %}
 

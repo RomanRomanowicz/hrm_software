@@ -13,6 +13,7 @@ admin.site.register(PersonnelData, PersonnelDataAdmin)
 
 class EmployeeInline(admin.TabularInline):
     model = Employee
+    verbose_name = 'Пользователь'
 
 @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
@@ -29,17 +30,6 @@ class PersonnelAdmin(admin.ModelAdmin):
         if object.image:
             return mark_safe(f"<img src='{object.image.url}' width=50>")
     get_html_image.short_description = "Миниятюра"
-
-# admin.site.register(Personnel, PersonnelAdmin)
-
-# @admin.register(Employee)
-# class EmployeeAdmin(admin.ModelAdmin):
-#     list_display =['id', 'employee', 'function', 'departament']
-#     list_display_links = ('id', 'employee', 'function', 'departament')
-#     search_fields = ('employee',)
-#     prepopulated_fields = {"slug": ("employee",)}
-
-
 
 
 @admin.register(Employment)
@@ -75,21 +65,8 @@ class DailyReportAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Employee)
-
-# @admin.register(Education)
-# class EducationAdmin(admin.ModelAdmin):
-#     list_display = ['employee', 'education']
-#     # list_filter = ['qualifications',]
-#     # filter_horizontal = ['qualifications',]
-#
-#
-# @admin.register(Superiors)
-# class SuperiorsAdmin(admin.ModelAdmin):
-#     list_display = ['departament', 'superior']
-#
-#
-# @admin.register(Assignment)
-# class AssignmentAdmin(admin.ModelAdmin):
-#     list_display = ['level',]
-#
+@admin.register(Employee)
+class EmployeeAdmin(admin.ModelAdmin):
+    list_display = ['user', 'employee', 'function', 'departament']
+    list_filter = ('employee', 'function', 'departament')
+    list_display_links = ('user', 'employee','function', 'departament')

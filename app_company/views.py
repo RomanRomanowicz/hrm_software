@@ -38,7 +38,7 @@ class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'app_personnel/register.html'
     context_object_name = 'register'
-    success_url = reverse_lazy('create_personnel')
+    success_url = reverse_lazy('create_employee')
 
 
 # @login_required
