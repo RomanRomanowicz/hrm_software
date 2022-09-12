@@ -20,7 +20,7 @@ class Employee(models.Model):
         return reverse('employee-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f"{self.employee}, {self.function}"
+        return f"{self.employee}, {self.function}, {self.departament}"
 
     class Meta:
         ordering = ['employee']
@@ -85,6 +85,8 @@ class Employment(models.Model):
     education_remarks = models.TextField(blank=True, null=True, verbose_name='замечания по образованию')
     deadline = models.DateField(blank=True, null=True, verbose_name=' срок устрониения')
 
+    def get_absolute_url(self):
+        return reverse('employment-detail', args=[str(self.id)])
 
     def __str__(self):
         return f"{self.employee}"

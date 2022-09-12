@@ -4,7 +4,7 @@
 {% block title %}Event List{% endblock title %}
 
 {% block breadcrumb %}
-    <div>
+<div xmlns="http://www.w3.org/1999/html">
         <h1><i class="fa fa-dashboard"></i> Сотрудники организации</h1>
         <p>Event List</p>
     </div>
@@ -40,17 +40,107 @@
                                         <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">
                                             <div class="contest">
                                                 {% autoescape on %}
-                                                <p class="app-sidebar__user-name"><h3>ФИО: &nbsp; {{human.last_name}} &nbsp; {{human.first_name}}
+                                                <p class="app-sidebar__user-name"><h3><u>ФИО:</u> &nbsp; {{human.last_name}} &nbsp; {{human.first_name}}
                                                     {% if human.fathers_name %}
                                                         &nbsp; {{human.fathers_name}}
                                                 {% endif %}</h3></p>
-                                                <h4>Должность: &nbsp; {{ human.employee.function }}</h4>
-                                                <h4>Подразделение фирмы: {{ human.employee.departament }}</h4>
+                                                <h5><p><u style="color:blue;">Должность:</u><a style="margin: 0pt 90pt">{{ human.employee.function }}</a></p></h5>
+                                                <h5><p><u style="color:blue;">Подразделение фирмы:</u><a style="margin: 0pt 10pt">{{ human.employee.departament }}</a></p></h5>
                                                 <p></p>
                                                 {% endautoescape %}
-                                                <p class="app-sidebar__user-name">e-mail: &nbsp; {{human.email}}</p>
-                                                <p class="app-sidebar__user-name">№ тел: &nbsp;{{human.phone}}</p>
+                                                <h6><p><u style="color:blue;">e-mail:</u><a style="margin: 0pt 135pt">{{human.email}}</a></p></h6>
+                                                <h6><p><u style="color:blue;">№ тел:</u><a style="margin: 0pt 134pt">{{human.phone}}</a></p></h6>
                                                 <script>document.write('<a href="' + document.referrer + '">Go Back</a>');</script>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-bordered dataTable no-footer"  role="grid" aria-describedby="sampleTable_info">
+                                <thead>
+                                <h2>Личные данные сотрудника: <strong>{{human.last_name}} </strong>
+                                    {{human.first_name}}
+                                    {% if human.fathers_name %}
+                                        {{human.fathers_name}}
+                                    {% endif %}</p>
+                                </h2>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">
+                                            <h5>тип договора:</h5>
+                                            <h5>дата начала работы:</h5>
+                                            <h5>дата окончания контракта:</h5>
+                                            <h5>Размер зар. п.:</h5>
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">
+                                            <div class="contest">
+                                                <h5>{{ human.employment.contract }}</h5>
+                                                <h5>{{ human.employment.employment_date_beginning }}</h5>
+                                                <h5>{{ human.employment.employment_date_ending }}</h5>
+                                                <h5>{{ human.employment.salary }}</h5>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-bordered dataTable no-footer"  role="grid" aria-describedby="sampleTable_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">
+                                            <h5>День рождения:</h5>
+                                            <h5>Место рождения:</h5>
+                                            <h5>Страна рождения:</h5>
+                                            <hr>
+                                            <h5>Страна постоянного проживания:</h5>
+                                            <h5>Город постоянного проживания:</h5>
+                                            <h5>Почтовый индекс:</h5>
+                                            <h5>Улица:</h5>
+                                            <h5>Номер дома:</h5>
+                                            <h5>Номер квартиры:</h5>
+                                            <h5>образование:</h5>
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">
+                                            <div class="contest">
+                                                <h5>{{ human.personneldata.born }}</h5>
+                                                <h5>{{ human.personneldata.birth_place }}</h5>
+                                                <h5>{{ human.personneldata.birth_country }}</h5>
+                                                <hr>
+                                                <h5>{{ human.personneldata.country }}</h5>
+                                                <h5>{{ human.personneldata.city }}</h5>
+                                                <h5>{{ human.personneldata.post_code }}</h5>
+                                                <h5>{{ human.personneldata.street }}</h5>
+                                                <h5>{{ human.personneldata.street_number }}</h5>
+                                                <h5>{{ human.personneldata.house_number }}</h5>
+                                                <h5>{{ human.personneldata.education }}</h5>
                                             </div>
                                         </th>
                                     </tr>
