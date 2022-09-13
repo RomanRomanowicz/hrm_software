@@ -5,7 +5,7 @@
 
 {% block breadcrumb %}
     <div>
-        <h1><i class="fa fa-dashboard"></i> Add Personnel</h1>
+        <h1><i class="fa fa-dashboard"></i> Внесение изменений</h1>
         <p>Event List</p>
     </div>
     <ul class="app-breadcrumb breadcrumb">
@@ -19,12 +19,11 @@
     <div class="col-md-12">
         <div class="tile">
             <div class="block-title">
-                <h2><strong>Add</strong>Personnel</h2>
+                <h2><strong></strong>Внесение изменений</h2>
                     <head>
                         <body>
                             <form action="" method="post">
                                 {% csrf_token %}
-                                <p>Czy chcesz wprowadzić zmiany</p>
                                 {{ form.as_p }}
                                 <input type="submit" value="Save" />
                                 <script>document.write('<a href="' + document.referrer + '">Go Back</a>');</script>
