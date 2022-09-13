@@ -63,7 +63,7 @@
         </div>
     </div>
 </div>
-
+{% if perms.app_company %}
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
@@ -153,7 +153,7 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 {% endblock content %}
 
 {% block extrascripts %}

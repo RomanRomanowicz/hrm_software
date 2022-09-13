@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
+from app_company.forms import RegisterUserForm
 from app_personnel.models import *
 
 
@@ -15,6 +16,7 @@ class EmployeeInline(admin.TabularInline):
     model = Employee
     verbose_name = 'Пользователь'
 
+
 @admin.register(Personnel)
 class PersonnelAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'fathers_name', 'get_html_image', 'is_acceptance')
@@ -23,7 +25,7 @@ class PersonnelAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("last_name", "first_name")}
     list_editable = ('is_acceptance',)
     list_filter = ('last_name', 'is_acceptance')
-    inlines = [EmployeeInline]
+    inlines = [EmployeeInline, ]
     # readonly_fields = ('last_name',)
 
     def get_html_image(self, object):

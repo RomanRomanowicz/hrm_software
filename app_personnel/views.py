@@ -44,8 +44,7 @@ class CreatePersonnel(CreateView):
     success_url = reverse_lazy('create_data')
 
 
-class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
-    permission_required = 'app_personnel.views'
+class PersonnelIdDetail(DetailView):
     model = Personnel
     template_name = 'calendarapp/human.html'
     slug_url_kwarg = 'slug'  ### tu mogę nadać swoją nazwę "slug"
@@ -57,8 +56,8 @@ class PersonnelIdDetail(PermissionRequiredMixin, DetailView):
         return context
 
 
-class CreatePersonnelData(PermissionRequiredMixin, CreateView):
-    permission_required = 'app_personnel.views'
+class CreatePersonnelData( CreateView):
+    # permission_required = 'app_personnel.views'
     form_class = AddPersonnelDataForm
     template_name = 'calendarapp/add_personnel_data.html'
     context_object_name = 'create_data'
@@ -73,8 +72,8 @@ class PersonnelDataDetail(PermissionRequiredMixin, DetailView):
     context_object_name = 'personnel_data_detail'
 
 
-class EmploymentCreate(PermissionRequiredMixin, CreateView):
-    permission_required = 'app_personnel.views'
+class EmploymentCreate(CreateView):
+    # permission_required = 'app_personnel.views'
     form_class = AddEmploymentForm
     template_name = 'calendarapp/add_employment.html'
     context_object_name = 'add_employment'
@@ -105,8 +104,8 @@ class EmployeeDetail(PermissionRequiredMixin, DetailView):
     context_object_name = 'employee_detail'
 
 
-class CreateEmployee(PermissionRequiredMixin, CreateView):
-    permission_required = 'app_personnel.views'
+class CreateEmployee( CreateView):
+    # permission_required = 'app_personnel.views'
     form_class = AddEmployeeForm
     template_name = 'calendarapp/create_employee.html'
     context_object_name = 'create_employee'
@@ -129,6 +128,9 @@ class CreateEmployee(PermissionRequiredMixin, CreateView):
 
 
 def your_delegation(request):
+    if request.user.groups.filter(name='masteruser').exists():
+        context = Delegation.objects.filter()
+        return render(request, 'calendarapp/delegation_list.html', {'delegation': context})
     if request.user.groups.filter().exists():
         context = Delegation.objects.filter(username=request.user)
         return render(request, 'calendarapp/delegation_list.html', {'delegation': context})
@@ -171,6 +173,9 @@ class DeleteDelegation(DeleteView):
 
 
 def your_vacation(request):
+    if request.user.groups.filter(name='masteruser').exists():
+        context = Delegation.objects.filter()
+        return render(request, 'calendarapp/delegation_list.html', {'delegation': context})
     if request.user.groups.filter().exists():
         context = Vacation.objects.filter(username=request.user)
         return render(request, 'calendarapp/vacation_list.html', {'vacation': context})
@@ -206,6 +211,9 @@ class DeleteVacation(DeleteView):
 
 
 def your_daily_report(request):
+    if request.user.groups.filter(name='masteruser').exists():
+        context = Delegation.objects.filter()
+        return render(request, 'calendarapp/delegation_list.html', {'delegation': context})
     if request.user.groups.filter().exists():
         context = DailyReport.objects.filter(username=request.user)
         return render(request, 'calendarapp/daily_report_list.html', {'daily_report': context})
