@@ -55,8 +55,8 @@ def user_list(request):
     return render(request, 'app_company/user_list.html', {'users': users})
 
 
-# @login_required
-# @permission_required('app_company.function_group', raise_exception=True)
+@login_required
+@permission_required('app_company.function_group', raise_exception=True)
 def function_group(request):
     perm = 0
     for i in request.user.groups.all():
@@ -145,5 +145,5 @@ def function_perms(request):
         error = "Доступ запрещен"
         return render(request, 'app_company/error.html', {'error': error})
 
-    perms = Permission.objects.all()
+    perms = Permission.objects.all().exclude(name='masteruser')
     return render(request, 'app_company/Permission_list.html', {'perms': perms})
