@@ -134,3 +134,16 @@ class DeleteDepartament(PermissionRequiredMixin, DeleteView):
     template_name = 'app_company/delete_structure.html'
     context_object_name = 'delete_structure'
     success_url = reverse_lazy('structure')
+
+
+def function_perms(request):
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == 'masteruser': perm = 1
+
+    if perm == 0:
+        error = "Доступ запрещен"
+        return render(request, 'app_company/error.html', {'error': error})
+
+    perms = Permission.objects.all()
+    return render(request, 'app_company/Permission_list.html', {'perms': perms})

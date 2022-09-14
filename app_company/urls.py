@@ -14,4 +14,5 @@ urlpatterns = [
     path('create_structure/', CreateDepartament.as_view(), name='create_structure'),
     path('update_departament/<int:pk>/', UpdateDepartament.as_view(), name='update_departament'),
     path('delete_structure/<int:pk>/', DeleteDepartament.as_view(), name='delete_structure'),
+    path('permission_list/', function_perms, name='permission_list'),
 ]

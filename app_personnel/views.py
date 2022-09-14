@@ -17,8 +17,8 @@ from django.contrib.auth.models import User, Group
 class HomeView(LoginView):
     model = Personnel
     paginate_by = 10
-    template_name = 'calendarapp/personnel_list.html'
-    # template_name = 'calendarapp/dashboard.html'
+    # template_name = 'calendarapp/personnel_list.html'
+    template_name = 'calendarapp/dashboard.html'
     context_object_name = 'personnel'
 
     def get_queryset(self):
