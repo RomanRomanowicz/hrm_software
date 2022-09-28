@@ -1,20 +1,12 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import permission_required, login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
-import app_company.views
 from app_company.forms import *
-from app_company.models import *
-
 from django.contrib.auth.models import User, Group, Permission
-
 from app_personnel.models import *
 
 
@@ -39,13 +31,6 @@ class RegisterUser(CreateView):
     template_name = 'app_personnel/register.html'
     context_object_name = 'register'
     success_url = reverse_lazy('create_employee')
-
-
-# @login_required
-# @permission_required('app_company.user_list', raise_exception=True)
-# def user_list(request):
-#     users = User.objects.all()
-#     return render(request, 'app_company/user_list.html', {'users': users})
 
 
 @login_required
