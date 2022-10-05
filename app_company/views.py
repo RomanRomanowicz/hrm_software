@@ -132,3 +132,16 @@ def function_perms(request):
 
     perms = Permission.objects.all().exclude(name='masteruser')
     return render(request, 'app_company/Permission_list.html', {'perms': perms})
+
+
+def users_perms(request, pk):
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == 'masteruser': perm = 1
+
+    if perm == 0:
+        error = "Доступ запрещен"
+        return render(request, 'app_company/error.html', {'error': error})
+
+    perms = Permission.objects.all().exclude(name='masteruser')
+    return render(request, 'app_company/Permission_list.html', {'perms': perms})

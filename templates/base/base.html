@@ -10,7 +10,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <!-- Main CSS-->
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'cal/css/styles.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'app_personnel/css/stylesheet.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'app_calendar/css/styles.css' %}" />
         <!-- Font-icon css-->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         {% block extracss %}
@@ -19,7 +21,7 @@
     <body class="app sidebar-mini">
         <!-- Navbar-->
         <header class="app-header">
-            <a class="app-header__logo" href="#">HRM Software</a>
+            <a class="app-header__logo" href="{% url 'home' %}">HRM Software</a>
             <!-- Sidebar toggle button-->
             <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
             <!-- Navbar Right Menu-->
