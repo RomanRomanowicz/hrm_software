@@ -25,29 +25,3 @@ class RegisterUserForm(UserCreationForm):
 
     def __str__(self):
         return f"{self.username}"
-
-
-
-# class LoginUserForm(AuthenticationForm):
-#     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-#     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-
-
-
-
-
-
-
-
-
-
-# class AddQualificationsForm(forms.ModelForm):
-#     class Meta:
-#         model = Qualifications
-#         fields = ['qualifications',]
-
-
-# class AddVacationForm(forms.ModelForm):
-#     class Meta:
-#         model = Vacation
-#         fields = ['function', 'vacation_limit', 'remote_work_limit']

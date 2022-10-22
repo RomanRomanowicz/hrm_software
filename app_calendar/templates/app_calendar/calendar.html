@@ -18,9 +18,9 @@ Calendar
                                       <thead>
 									  	<div class="clearfix">
                                             <span class="left m-2" style="font-size: 20px;">{{ request.user }}</span>
-											<a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ prev_month }}"> Previous Month </a>
-											<a class="btn btn-info right" href="{% url 'cal:calendar' %}?{{ next_month }}"> Next Month </a>
-											<a class="btn btn-info left" href="{% url 'cal:event_new' %}"> New Event </a>
+											<a class="btn btn-info right" href="{% url 'app_calendar:calendar' %}?{{ prev_month }}"> Previous Month </a>
+											<a class="btn btn-info right" href="{% url 'app_calendar:calendar' %}?{{ next_month }}"> Next Month </a>
+											<a class="btn btn-info left" href="{% url 'app_calendar:event_new' %}"> New Event </a>
 										</div>
                                         <div style="color: blueviolet;">
                                             {{ calendar }}

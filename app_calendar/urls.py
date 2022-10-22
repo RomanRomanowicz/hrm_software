@@ -3,7 +3,7 @@ from django.urls import path, include
 from .views import *
 
 
-app_name = 'cal'
+app_name = 'app_calendar'
 urlpatterns = [
     path('calendar/', CalendarView.as_view(), name='calendar'),
     path('event/new/', event, name='event_new'),
